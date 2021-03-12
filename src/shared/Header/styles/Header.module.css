@@ -1,0 +1,19 @@
+.appBar {
+  background-color: var(--header-block-bg-color) !important;
+}
+
+.root {
+  direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  width: 60px;
+  height: 64px;
+}
+
+.links {
+  text-decoration: none;
+  color: var(--h1-text-color);
+}
