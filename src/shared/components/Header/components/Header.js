@@ -4,11 +4,16 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
 import logo from "../styles/logo.png";
 import styles from "../styles/Header.module.css";
+import SideMenu from "../../SideMenu/components/SideMenu";
+import useToggle from "../../../hooks/useToggle";
 
-function Header(props) {
+function Header({ isSigned = true }) {
+  const [isDrawlerOpened, toggleDrawler] = useToggle();
+
   return (
     <div>
       <AppBar position="static" className={styles.appBar}>
@@ -19,15 +24,18 @@ function Header(props) {
                 <img className={styles.logo} src={logo} alt="Logo" />
               </Link>
             </Grid>
-            {false ? (
+            {isSigned ? (
               <Grid item>
                 <Grid container>
-                  <Button color="inherit" disableRipple>
-                    <Typography>{}</Typography>
-                  </Button>
-                  <Button color="inherit" disableRipple onClick={() => {}}>
-                    Log out
-                  </Button>
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="end"
+                    onClick={toggleDrawler}
+                    className={isDrawlerOpened ? styles.hide : null}
+                  >
+                    <MenuIcon />
+                  </IconButton>
                 </Grid>
               </Grid>
             ) : (
@@ -47,6 +55,7 @@ function Header(props) {
           </Grid>
         </Toolbar>
       </AppBar>
+      <SideMenu isOpened={isDrawlerOpened} toggleDrawler={toggleDrawler} />
     </div>
   );
 }

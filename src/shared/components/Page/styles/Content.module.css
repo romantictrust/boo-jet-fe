@@ -1,0 +1,10 @@
+.root {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 3em;
+}
+
+.container {
+  max-width: 70%;
+}

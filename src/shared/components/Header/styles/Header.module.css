@@ -1,5 +1,10 @@
+:root {
+  --header-height: 68px;
+}
+
 .appBar {
   background-color: var(--header-block-bg-color) !important;
+  height: --header-height;
 }
 
 .root {
