@@ -10,7 +10,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import styles from "./styles/Widget.module.css";
 import WidgetMenu from "./components/WidgetMenu";
 
-export default function Widget({ heading, children }) {
+export default function Widget({ widgetType, heading, children }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -34,7 +34,7 @@ export default function Widget({ heading, children }) {
           title={heading}
         />
       )}
-      <WidgetMenu widgetType={0} anchorEl={anchorEl} onClose={handleClose} />
+      <WidgetMenu widgetType={widgetType} anchorEl={anchorEl} onClose={handleClose} />
       <CardContent>{children}</CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">

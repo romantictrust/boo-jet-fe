@@ -13,13 +13,15 @@ export default function WidgetMenu({ widgetType, anchorEl, onClose }) {
       open={Boolean(anchorEl)}
       onClose={onClose}
     >
-      {WidgetMenuOptions[widgetType].map((option) => {
-        return (
-          <MenuItem onClick={() => option.method("option")}>
-            {option.title}
-          </MenuItem>
-        );
-      })}
+      {typeof widgetType === "number"
+        ? WidgetMenuOptions[widgetType].map((option, key) => {
+            return (
+              <MenuItem key={key} onClick={() => option.method("option")}>
+                {option.title}
+              </MenuItem>
+            );
+          })
+        : "No Options"}
     </Menu>
   );
 }
