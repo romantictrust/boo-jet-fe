@@ -3,7 +3,7 @@
 }
 
 .appBar {
-  background-color: var(--header-block-bg-color) !important;
+  background-color: var(--secondary-green-color) !important;
   height: --header-height;
 }
 
@@ -20,5 +20,5 @@
 
 .links {
   text-decoration: none;
-  color: var(--h1-text-color);
+  color: var(--primary-green-color);
 }

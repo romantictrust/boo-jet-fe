@@ -1,7 +1,7 @@
 :root {
   /* colors */
-  --h1-text-color: #11703c;
-  --header-block-bg-color: rgba(51, 163, 98, 0.459);
+  --primary-green-color: #11703c;
+  --secondary-green-color: rgba(51, 163, 98, 0.459);
 }
 
 body {
