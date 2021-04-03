@@ -10,5 +10,5 @@ export const createRequestTypes = (base) => {
 };
 
 export const action = (type, payload = {}) => {
-  return { type, ...payload };
+  return { type, payload };
 };

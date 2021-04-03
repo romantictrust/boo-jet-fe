@@ -13,12 +13,19 @@
   margin: 0.2em;
   background-color: var(--primary-green-color) !important;
 }
+
 .form {
   width: "100%";
   margin-top: 1em;
 }
+
 .submit {
   margin-top: 1em !important;
   margin-bottom: 2em !important;
   background-color: var(--secondary-green-color) !important;
+}
+
+.links {
+  text-decoration: none;
+  color: var(--blue-link) ;
 }

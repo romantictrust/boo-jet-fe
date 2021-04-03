@@ -1,16 +1,13 @@
 import { USER_SIGNUP } from "../actions";
 
-export const userSignUpReduser = (
-  state = { data: {}, error: null, loading: false },
-  { type, data, error }
-) => {
-  switch (type) {
+const initialState = { data: {}, loading: false };
+
+export const userSignUpReduser = (state = initialState, action) => {
+  switch (action.type) {
     case USER_SIGNUP.REQUEST:
-      return { ...state, error: null, loading: true };
+      return { ...state, loading: true };
     case USER_SIGNUP.RESPONSE:
-      return { ...state, data, error: null, loading: false };
-    case USER_SIGNUP.FAILURE:
-      return { ...state, data: {}, error, loading: false };
+      return { ...state, data: action.payload, loading: false };
     default:
       return state;
   }

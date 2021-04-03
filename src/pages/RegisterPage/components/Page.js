@@ -9,44 +9,33 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import styles from "../styles/RegisterPage.module.css";
+import { validationErrorMassages } from "../constants";
 import {
   validateEmail,
   validatePassword,
 } from "../../../shared/functions/validate";
-import Snackbar from "../../../shared/components/Snackbar";
 
-export default function SignUp({ onSendUser }) {
-  const [snackMessage, setSnackMessage] = React.useState();
-
-  const setSnack = (message) => {
-    Promise.resolve().then(() => {
-      setSnackMessage(message);
-    });
-  };
-
+export default function SignUp({ onSendUser, onPushMessage }) {
   const confirmReg = (event) => {
     event.preventDefault();
-    setSnack();
     const email = SignUp.email.value;
     const password = SignUp.password.value;
     const userName = SignUp.userName.value;
 
     if (!validateEmail(email)) {
-      setSnack({ notification: "Invalid email" });
+      onPushMessage({ text: validationErrorMassages.email });
     } else if (!validatePassword(password)) {
-      setSnack({
-        notification:
-          "Password should contain at least one digit, one lower case and least 8 characters",
+      onPushMessage({
+        text: validationErrorMassages.password,
       });
     } else {
-      const user = {
+      onSendUser({
         user: {
           email,
           password,
           userName,
         },
-      };
-      onSendUser(user);
+      });
     }
   };
 
@@ -123,16 +112,12 @@ export default function SignUp({ onSendUser }) {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link
-                to="/authorization"
-                style={{ textDecoration: "none", color: "purple" }}
-              >
+              <Link to="/auth" className={styles.links}>
                 Already have an account? Sign in
               </Link>
             </Grid>
           </Grid>
         </form>
-        {snackMessage ? <Snackbar message={snackMessage} /> : null}
       </div>
     </Container>
   );

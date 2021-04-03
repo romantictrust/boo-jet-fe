@@ -1,53 +1,52 @@
-import React from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Button from '@material-ui/core/Button';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import Button from "@material-ui/core/Button";
+import { useSnackbar } from "notistack";
+import { snackbar } from "./actions";
 
-export default function SimpleSnackbar(props) {
-  const [open, setOpen] = React.useState(true);
+function SimpleSnackbar({ messages, onClearMessage }) {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  // Pass props *Object in SimpleSnackbar! According to that schema!
-  const defaultProps = { notification: '', button: '', onClick: () => {} };
-  const modifiedProps = { ...defaultProps, ...props.message };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  return (
-    <div>
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        ContentProps={{
-          'aria-describedby': 'message-id',
-        }}
-        message={<span id="message-id">{modifiedProps.notification}</span>}
-        action={[
-          <Button
-            key="undo"
-            color="secondary"
-            size="small"
-            onClick={modifiedProps.onClick}
-          >
-            {modifiedProps.button}
-          </Button>,
-          <IconButton
-            key="close"
-            aria-label="close"
-            color="inherit"
-            onClick={handleClose}
-          >
-            <CloseIcon />
-          </IconButton>,
-        ]}
-      />
-    </div>
-  );
+  useEffect(() => {
+    if (messages.length > 0) {
+      messages.forEach((message) => {
+        enqueueSnackbar(message.text, {
+          preventDuplicate: true,
+          variant: message.snackbarType,
+          key: message.id,
+          persist: !message.autoHide,
+          autoHideDuration: 2000,
+          action:
+            message.actionText && message.action
+              ? (key) => (
+                  <Button
+                    key={key}
+                    color="secondary"
+                    size="small"
+                    onClick={message.action}
+                  >
+                    message.actionText
+                  </Button>
+                )
+              : null,
+          onExited: (event, myKey) => {
+            onClearMessage(message.id);
+          },
+        });
+      });
+    }
+  }, [messages]);
+  return null;
 }
+
+const mapStateToProps = (state) => {
+  return {
+    messages: state.snackbars.messages,
+  };
+};
+
+const mapDispatchToProps = {
+  onClearMessage: snackbar.clearMessage,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SimpleSnackbar);
