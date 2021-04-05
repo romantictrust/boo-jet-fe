@@ -9,6 +9,8 @@ export const snackbar = {
     action(SNACKBAR_HANDLE_MESSAGE, {
       id: random(),
       text: message.text,
+      action: message.action,
+      actionText: message.actionText,
       autoHide: message.autoHide ?? true,
       snackbarType: message?.snackbarType ?? "error",
     }),

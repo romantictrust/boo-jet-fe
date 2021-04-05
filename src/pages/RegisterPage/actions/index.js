@@ -6,9 +6,9 @@ import {
   FAILURE,
 } from "../../../actions";
 
-export const USER_SIGNUP = createRequestTypes("USER_SIGNUP");
+export const USER_SIGN_UP = createRequestTypes("USER_SIGN_UP");
 
 export const userSignUp = {
-  request: (userData) => action(USER_SIGNUP[REQUEST], { userData }),
-  success: (response) => action(USER_SIGNUP[SUCCESS], { response }),
+  request: (userData) => action(USER_SIGN_UP[REQUEST], { userData }),
+  success: (response) => action(USER_SIGN_UP[SUCCESS], { response }),
 };

@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { useSnackbar } from "notistack";
 import { snackbar } from "./actions";
 
 function SimpleSnackbar({ messages, onClearMessage }) {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (messages.length > 0) {
@@ -23,9 +24,9 @@ function SimpleSnackbar({ messages, onClearMessage }) {
                     key={key}
                     color="secondary"
                     size="small"
-                    onClick={message.action}
+                    onClick={() => dispatch(message.action)}
                   >
-                    message.actionText
+                    {message.actionText}
                   </Button>
                 )
               : null,

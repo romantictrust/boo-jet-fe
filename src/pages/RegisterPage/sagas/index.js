@@ -1,10 +1,11 @@
 import { put, take, fork, call } from "redux-saga/effects";
-import { USER_SIGNUP, userSignUp } from "../actions";
+import { USER_SIGN_UP, userSignUp } from "../actions";
 import { snackbar } from "../../../shared/components/Snackbar/actions";
 import { successMessage } from "../constants";
+import { signUpRoute } from "../../../shared/constants";
 
 function* onSignUpUser(userData) {
-  const response = yield call(fetch, "http://localhost:5000/signup", {
+  const response = yield call(fetch, signUpRoute, {
     method: "POST",
     body: JSON.stringify(userData),
     headers: {
@@ -22,7 +23,7 @@ function* onSignUpUser(userData) {
 
 export function* fetchSignUpUser() {
   while (true) {
-    const { payload } = yield take(USER_SIGNUP.REQUEST);
+    const { payload } = yield take(USER_SIGN_UP.REQUEST);
     yield fork(onSignUpUser, payload.userData);
   }
 }

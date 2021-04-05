@@ -13,11 +13,17 @@
 }
 
 .drawerHeader {
-  display: "flex";
-  align-items: "center";
+  display: flex;
+  align-items: center;
   padding: 0px 8px;
   min-height: 48px;
-  justify-content: "flex-start";
+  justify-content: flex-start;
+}
+
+.signOut {
+  margin-top: auto !important;
+  bottom: 4em;
+  color: var(--red-button-color);
 }
 
 .content {

@@ -1,3 +1,9 @@
+const ORIGIN = "http://localhost:5000";
+
+export const signUpRoute = ORIGIN + "/signup";
+export const signInRoute = ORIGIN + "/signin";
+export const reconfirmEmailRoute = ORIGIN + "/mailing/reconfirm";
+
 export const emailReg = new RegExp(
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 );

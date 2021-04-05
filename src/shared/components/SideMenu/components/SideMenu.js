@@ -10,8 +10,17 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import styles from "../styles/SideMenu.module.css";
+import { withRouter } from "react-router-dom";
 
-export default function SideMenu({ isOpened, toggleDrawler }) {
+function SideMenu({ history, isOpened, toggleDrawler }) {
+  const handleSignOut = () => {
+    localStorage.clear();
+    setTimeout(() => {
+      history.replace("/auth");
+      history.go(0);
+    }, 1000);
+  };
+
   return (
     <Drawer
       className={styles.drawer}
@@ -49,6 +58,12 @@ export default function SideMenu({ isOpened, toggleDrawler }) {
           </ListItem>
         ))}
       </List>
+      <List className={styles.signOut}>
+        <ListItem button onClick={handleSignOut} key={"signOut"}>
+          <ListItemText primary="Sign out" />
+        </ListItem>
+      </List>
     </Drawer>
   );
 }
+export default withRouter(SideMenu);
