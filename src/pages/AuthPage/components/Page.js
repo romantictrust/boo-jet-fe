@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -10,15 +10,26 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import styles from "../styles/AuthPage.module.css";
 import usePrevious from "../../../shared/hooks/usePrevious";
+import validate from "../../../shared/functions/validate";
 
 function SignIn({ history, user, onSendUser, onPushMessage }) {
+  const [errors, setErrors] = useState({
+    email: false,
+    password: false,
+  });
   const prevUser = usePrevious(user);
   const confirmAuth = async (event) => {
     event.preventDefault();
     const email = SignIn.email.value;
     const password = SignIn.password.value;
-    const user = { user: { email, password } };
-    onSendUser(user);
+
+    validate("auth", "email", email, setErrors, onPushMessage);
+    validate("auth", "password", password, setErrors, onPushMessage);
+
+    if (!errors.email && !errors.password) {
+      const user = { user: { email, password } };
+      onSendUser(user);
+    }
   };
 
   useEffect(() => {
@@ -49,6 +60,7 @@ function SignIn({ history, user, onSendUser, onPushMessage }) {
             margin="normal"
             required
             fullWidth
+            error={errors.email}
             id="email"
             label="Email Address"
             name="email"
@@ -62,6 +74,7 @@ function SignIn({ history, user, onSendUser, onPushMessage }) {
             margin="normal"
             required
             fullWidth
+            error={errors.password}
             name="password"
             label="Password"
             type="password"

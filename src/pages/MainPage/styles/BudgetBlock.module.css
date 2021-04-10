@@ -1,0 +1,11 @@
+.root {
+    margin: 20px;
+    padding: 15px;
+  }
+  
+  .heading {
+    margin-top: 10px !important;
+    margin-bottom: 15px !important;
+    color: var(--primary-green-color);
+  }
+  
