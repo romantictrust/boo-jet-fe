@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -14,14 +14,34 @@ import MenuItem from "@material-ui/core/MenuItem";
 import styles from "../styles/BudgetAddcard.module.css";
 import useToggle from "../../../shared/hooks/useToggle";
 import validate from "../../../shared/functions/validate";
+import usePrevious from "../../../shared/hooks/usePrevious";
 
-export default function BudgetAddcard({ onPushMessage }) {
+const errorsInitialState = {
+  name: false,
+  currency: false,
+  value: false,
+};
+
+export default function BudgetAddcard({
+  currenciesList,
+  onPushMessage,
+  onGetCurrencies,
+}) {
   const [isAddCardOpened, toggleAddCardModal] = useToggle();
-  const [errors, setErrors] = useState({
-    name: false,
-    currency: false,
-    value: false,
-  });
+  const [errors, setErrors] = useState(errorsInitialState);
+  const prevOpenedState = usePrevious(isAddCardOpened);
+
+  useEffect(() => {
+    if (
+      isAddCardOpened &&
+      prevOpenedState !== isAddCardOpened &&
+      currenciesList.length === 0
+    ) {
+      onGetCurrencies();
+    }
+    if (!isAddCardOpened && prevOpenedState !== isAddCardOpened)
+      setErrors(errorsInitialState);
+  }, [isAddCardOpened]);
 
   const handleformSubmit = (e) => {
     e.preventDefault();
@@ -86,11 +106,11 @@ export default function BudgetAddcard({ onPushMessage }) {
                 // value={currency}
                 // onChange={handleCurrency}
               >
-                {/* {currencies.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))} */}
+                {currenciesList.map((currency) => (
+                  <MenuItem key={currency._id} value={currency._id}>
+                    {currency.symbol}
+                  </MenuItem>
+                ))}
               </TextField>
             </Grid>
             <Grid item xs={6}>

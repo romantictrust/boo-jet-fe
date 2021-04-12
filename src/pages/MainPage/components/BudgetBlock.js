@@ -13,7 +13,11 @@ import BudgetAddcard from "../components/BudgetAddcard";
 
 import styles from "../styles/BudgetBlock.module.css";
 
-export default function BudgetBlock({ onPushMessage }) {
+export default function BudgetBlock({
+  currenciesList,
+  onPushMessage,
+  onGetCurrencies,
+}) {
   return (
     <Paper className={styles.root}>
       <Typography variant="h5" className={styles.heading}>
@@ -22,7 +26,11 @@ export default function BudgetBlock({ onPushMessage }) {
       <Grid container spacing={2}>
         <BudgetCard />
         <BudgetCard />
-        <BudgetAddcard onPushMessage={onPushMessage} />
+        <BudgetAddcard
+          currenciesList={currenciesList}
+          onPushMessage={onPushMessage}
+          onGetCurrencies={onGetCurrencies}
+        />
       </Grid>
     </Paper>
   );

@@ -25,6 +25,6 @@ export const validate = {
   budget: {
     name: (name) => name.length > 2 && name.length < 25,
     value: (value) => +value > 0,
-    currency: (currency) => +currency > 0,
+    currency: (currency) => currency?.length ?? 0 > 0,
   },
 };

@@ -1,13 +1,8 @@
-import { USER_SIGN_IN } from "../../AuthPage/actions";
+import { combineReducers } from "redux";
+import { userReducer } from "./userReducer";
+import { currencyReducer } from "./currencyReducer";
 
-const initialState = { user: {} };
-
-export const mainPageReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case USER_SIGN_IN.SUCCESS:
-      return { ...state, user: action.payload };
-    default: {
-      return state;
-    }
-  }
-};
+export const mainPageReducer = combineReducers({
+  user: userReducer,
+  currency: currencyReducer,
+});

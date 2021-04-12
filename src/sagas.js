@@ -4,11 +4,13 @@ import {
   fetchSignInUser,
   fetchEmailConfirmation,
 } from "./pages/AuthPage/sagas";
+import { fetchCurrencies } from "./pages/MainPage/sagas/currencySaga";
 
-export default function* root() {
+export default function* rootSaga() {
   yield all([
     fork(fetchSignUpUser),
     fork(fetchSignInUser),
     fork(fetchEmailConfirmation),
+    fork(fetchCurrencies),
   ]);
 }

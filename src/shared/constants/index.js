@@ -4,6 +4,9 @@ export const signUpRoute = ORIGIN + "/signup";
 export const signInRoute = ORIGIN + "/signin";
 export const reconfirmEmailRoute = ORIGIN + "/mailing/reconfirm";
 
+// API's
+export const currenciesListRoute = ORIGIN + "/api/currencies";
+
 export const validationErrorMassages = {
   auth: {
     userName: "Username should contain more than 2 and less then 25 symbols",
