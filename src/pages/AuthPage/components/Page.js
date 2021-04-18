@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import styles from "../styles/AuthPage.module.css";
 import usePrevious from "../../../shared/hooks/usePrevious";
-import validate from "../../../shared/functions/validate";
+import validate, { validateAll } from "../../../shared/functions/validate";
 
 function SignIn({ history, user, onSendUser, onPushMessage }) {
   const [errors, setErrors] = useState({
@@ -23,10 +23,12 @@ function SignIn({ history, user, onSendUser, onPushMessage }) {
     const email = SignIn.email.value;
     const password = SignIn.password.value;
 
-    validate("auth", "email", email, setErrors, onPushMessage);
-    validate("auth", "password", password, setErrors, onPushMessage);
+    const isValid = validateAll(
+      validate("auth", "email", email, setErrors, onPushMessage),
+      validate("auth", "password", password, setErrors, onPushMessage)
+    );
 
-    if (!errors.email && !errors.password) {
+    if (isValid) {
       const user = { user: { email, password } };
       onSendUser(user);
     }

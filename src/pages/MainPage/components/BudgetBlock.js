@@ -1,35 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
 
 import BudgetCard from "../components/BudgetCard";
-import BudgetAddcard from "../components/BudgetAddcard";
+import BudgetCardPopup from "../components/BudgetCardPopup";
 
 import styles from "../styles/BudgetBlock.module.css";
 
 export default function BudgetBlock({
   currenciesList,
+  budgetsList,
+  editable,
   onPushMessage,
   onGetCurrencies,
+  onPostBudget,
+  onEditBudget,
+  onBudgetEditOver,
+  onGetBudget,
 }) {
+  useEffect(() => {
+    if (currenciesList.length === 0) onGetCurrencies();
+    if (budgetsList.length === 0) onGetBudget();
+  }, []);
+
   return (
     <Paper className={styles.root}>
       <Typography variant="h5" className={styles.heading}>
         Budget groups
       </Typography>
       <Grid container spacing={2}>
-        <BudgetCard />
-        <BudgetCard />
-        <BudgetAddcard
+        {budgetsList.map((budget) => (
+          <BudgetCard key={budget._id} budget={budget} />
+        ))}
+        <BudgetCardPopup
           currenciesList={currenciesList}
+          editable={editable}
           onPushMessage={onPushMessage}
           onGetCurrencies={onGetCurrencies}
+          onBudgetEditOver={onBudgetEditOver}
+          onPostBudget={onPostBudget}
+          onEditBudget={onEditBudget}
         />
       </Grid>
     </Paper>

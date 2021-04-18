@@ -11,10 +11,11 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import styles from "../styles/BudgetAddcard.module.css";
+import styles from "../styles/BudgetCardPopup.module.css";
 import useToggle from "../../../shared/hooks/useToggle";
-import validate from "../../../shared/functions/validate";
+import validate, { validateAll } from "../../../shared/functions/validate";
 import usePrevious from "../../../shared/hooks/usePrevious";
+import { objIsEmpty } from "../../../shared/functions/isEmpty";
 
 const errorsInitialState = {
   name: false,
@@ -22,14 +23,25 @@ const errorsInitialState = {
   value: false,
 };
 
-export default function BudgetAddcard({
+export default function BudgetCardPopup({
   currenciesList,
+  editable,
   onPushMessage,
   onGetCurrencies,
+  onPostBudget,
+  onEditBudget,
+  onBudgetEditOver,
 }) {
   const [isAddCardOpened, toggleAddCardModal] = useToggle();
+  const [form, setFormValues] = useState({});
   const [errors, setErrors] = useState(errorsInitialState);
   const prevOpenedState = usePrevious(isAddCardOpened);
+
+  const editMode = !objIsEmpty(editable);
+
+  useEffect(() => {
+    if (editMode) setFormValues(editable);
+  }, [editable]);
 
   useEffect(() => {
     if (
@@ -43,15 +55,53 @@ export default function BudgetAddcard({
       setErrors(errorsInitialState);
   }, [isAddCardOpened]);
 
+  useEffect(() => {
+    if (editMode) toggleAddCardModal();
+  }, [editable]);
+
+  const handleNameChange = (e) => {
+    setFormValues({ ...form, name: e.target.value });
+  };
+
+  const handleCurrencyChange = (e) => {
+    setFormValues({ ...form, currency: e.target.value });
+  };
+
+  const handleValueChange = (e) => {
+    setFormValues({ ...form, value: e.target.value });
+  };
+
+  const handleFormClose = () => {
+    onBudgetEditOver();
+    setFormValues({});
+    toggleAddCardModal();
+  };
+
   const handleformSubmit = (e) => {
     e.preventDefault();
-    const name = BudgetAddcard.budgetName.value;
-    const currency = BudgetAddcard.currency.value;
-    const value = BudgetAddcard.value.value;
 
-    validate("budget", "name", name, setErrors, onPushMessage);
-    validate("budget", "currency", currency, setErrors, onPushMessage);
-    validate("budget", "value", value, setErrors, onPushMessage);
+    const { name, currency, value, _id } = form;
+
+    const isValid = validateAll(
+      validate("budget", "name", name, setErrors, onPushMessage),
+      validate(
+        "budget",
+        "currency",
+        currency?._id ?? currency,
+        setErrors,
+        onPushMessage
+      ),
+      validate("budget", "value", value, setErrors, onPushMessage)
+    );
+
+    if (isValid) {
+      const budget = { name, currency: currency?._id ?? currency, value };
+      editMode
+        ? onEditBudget({ ...budget, _id: _id })
+        : onPostBudget({ ...budget });
+      setFormValues({});
+      toggleAddCardModal();
+    }
   };
 
   return (
@@ -68,7 +118,7 @@ export default function BudgetAddcard({
       </Grid>
       <Dialog
         open={isAddCardOpened}
-        onClose={toggleAddCardModal}
+        onClose={handleFormClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Add budget source</DialogTitle>
@@ -87,9 +137,8 @@ export default function BudgetAddcard({
                 label="Name"
                 type="name"
                 fullWidth
-                inputRef={(el) => {
-                  BudgetAddcard.budgetName = el;
-                }}
+                value={form.name}
+                onChange={(e) => handleNameChange(e)}
               />
             </Grid>
             <Grid item xs={6}>
@@ -100,11 +149,8 @@ export default function BudgetAddcard({
                 error={errors.currency}
                 label="Select"
                 fullWidth
-                inputRef={(el) => {
-                  BudgetAddcard.currency = el;
-                }}
-                // value={currency}
-                // onChange={handleCurrency}
+                value={form.currency?._id ?? form.currency}
+                onChange={(e) => handleCurrencyChange(e)}
               >
                 {currenciesList.map((currency) => (
                   <MenuItem key={currency._id} value={currency._id}>
@@ -125,19 +171,18 @@ export default function BudgetAddcard({
                 InputLabelProps={{
                   shrink: true,
                 }}
-                inputRef={(el) => {
-                  BudgetAddcard.value = el;
-                }}
+                value={form.value}
+                onChange={(e) => handleValueChange(e)}
               />
             </Grid>
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={toggleAddCardModal} color="primary">
+          <Button onClick={handleFormClose} color="primary">
             Cancel
           </Button>
           <Button type="submit" onClick={handleformSubmit} color="primary">
-            Add budget
+            {editMode ? "Edit" : "Add budget"}
           </Button>
         </DialogActions>
       </Dialog>

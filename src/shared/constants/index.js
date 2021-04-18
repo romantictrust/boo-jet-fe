@@ -1,7 +1,16 @@
 const ORIGIN = "http://localhost:5000";
 
+// Budgets
+export const budgetPostRoute = ORIGIN + "/budgets";
+export const budgetsGetRoute = ORIGIN + "/budgets/";
+export const budgetDeleteRoute = ORIGIN + "/budgets/remove";
+export const budgetEditRoute = ORIGIN + "/budgets/edit";
+
+// User auth
 export const signUpRoute = ORIGIN + "/signup";
 export const signInRoute = ORIGIN + "/signin";
+
+// Mailing
 export const reconfirmEmailRoute = ORIGIN + "/mailing/reconfirm";
 
 // API's

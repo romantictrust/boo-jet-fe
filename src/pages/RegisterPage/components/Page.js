@@ -9,7 +9,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import styles from "../styles/RegisterPage.module.css";
-import validate from "../../../shared/functions/validate";
+import validate, { validateAll } from "../../../shared/functions/validate";
 
 export default function SignUp({ onSendUser, onPushMessage }) {
   const [errors, setErrors] = useState({
@@ -23,11 +23,13 @@ export default function SignUp({ onSendUser, onPushMessage }) {
     const password = SignUp.password.value;
     const userName = SignUp.userName.value;
 
-    validate("auth", "email", email, setErrors, onPushMessage);
-    validate("auth", "password", password, setErrors, onPushMessage);
-    validate("auth", "userName", userName, setErrors, onPushMessage);
+    const isValid = validateAll(
+      validate("auth", "email", email, setErrors, onPushMessage),
+      validate("auth", "password", password, setErrors, onPushMessage),
+      validate("auth", "userName", userName, setErrors, onPushMessage)
+    );
 
-    if (!errors.email && !errors.password && !errors.userName) {
+    if (isValid) {
       onSendUser({
         user: {
           email,
