@@ -4,10 +4,10 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
-import BudgetCard from "../components/BudgetCard";
-import BudgetCardPopup from "../components/BudgetCardPopup";
+import BudgetCard from "./Card";
+import BudgetCardPopup from "./CardPopup";
 
-import styles from "../styles/BudgetBlock.module.css";
+import styles from "../../styles/BudgetBlock.module.css";
 
 export default function BudgetBlock({
   currenciesList,
@@ -19,6 +19,7 @@ export default function BudgetBlock({
   onEditBudget,
   onBudgetEditOver,
   onGetBudget,
+  onPostBudgetAction,
 }) {
   useEffect(() => {
     if (currenciesList.length === 0) onGetCurrencies();
@@ -32,7 +33,12 @@ export default function BudgetBlock({
       </Typography>
       <Grid container spacing={2}>
         {budgetsList.map((budget) => (
-          <BudgetCard key={budget._id} budget={budget} />
+          <BudgetCard
+            key={budget._id}
+            budget={budget}
+            onPushMessage={onPushMessage}
+            onPostBudgetAction={onPostBudgetAction}
+          />
         ))}
         <BudgetCardPopup
           currenciesList={currenciesList}

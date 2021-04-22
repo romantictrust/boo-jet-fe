@@ -8,7 +8,7 @@ import {
   budgetDelete,
   BUDGETS_GET,
   budgetsGet,
-} from "../actions/budgetActions";
+} from "../actions/budget";
 import { snackbar } from "../../../shared/components/Snackbar/actions";
 import { getUser } from "../selectors/userSelectors";
 import {

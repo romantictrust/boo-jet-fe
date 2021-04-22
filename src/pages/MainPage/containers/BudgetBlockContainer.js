@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import BudgetBlock from "../components/BudgetBlock";
+import BudgetBlock from "../components/Budget/Block";
 import { snackbar } from "../../../shared/components/Snackbar/actions";
-import { currenciesList } from "../actions/currencyActions";
-import { budgetPost, budgetEdit, budgetsGet } from "../actions/budgetActions";
+import { currenciesList } from "../actions/currency";
+import { budgetPost, budgetEdit, budgetsGet } from "../actions/budget";
+import { budgetActionPost } from "../actions/budgetActions";
 import { processBudgets } from "../selectors/currencySelectors";
 
 const BudgetBlockContainer = ({
@@ -16,6 +17,7 @@ const BudgetBlockContainer = ({
   onEditBudget,
   onBudgetEditOver,
   onGetBudget,
+  onPostBudgetAction,
 }) => {
   return (
     <BudgetBlock
@@ -28,6 +30,7 @@ const BudgetBlockContainer = ({
       onEditBudget={onEditBudget}
       onBudgetEditOver={onBudgetEditOver}
       onGetBudget={onGetBudget}
+      onPostBudgetAction={onPostBudgetAction}
     />
   );
 };
@@ -47,6 +50,7 @@ const mapDispatchToProps = {
   onEditBudget: budgetEdit.request,
   onBudgetEditOver: budgetEdit.deny,
   onGetBudget: budgetsGet.request,
+  onPostBudgetAction: budgetActionPost.request,
 };
 
 export default connect(

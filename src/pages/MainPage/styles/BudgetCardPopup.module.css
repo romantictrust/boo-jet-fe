@@ -1,5 +1,5 @@
 .card {
-    height: 11.6em;
+    height: 12em;
     width: 100%;
     border: 4px dashed var(--secondary-green-color) !important;
 }

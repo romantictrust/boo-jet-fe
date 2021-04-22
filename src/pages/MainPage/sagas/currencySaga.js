@@ -1,5 +1,5 @@
 import { put, take, fork, call } from "redux-saga/effects";
-import { CURRENCY_DATA, currenciesList } from "../actions/currencyActions";
+import { CURRENCY_DATA, currenciesList } from "../actions/currency";
 import { snackbar } from "../../../shared/components/Snackbar/actions";
 import { currenciesListRoute } from "../../../shared/constants";
 

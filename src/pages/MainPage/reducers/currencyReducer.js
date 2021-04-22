@@ -1,4 +1,4 @@
-import { CURRENCY_DATA } from "../actions/currencyActions";
+import { CURRENCY_DATA } from "../actions/currency";
 
 const initialState = { currencyData: [], loading: false };
 

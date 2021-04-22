@@ -27,8 +27,8 @@ export default function Widget({ widgetType, heading, children }) {
         <CardHeader
           className={styles.heading}
           action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon onClick={handleClick} />
+            <IconButton onClick={handleClick} aria-label="settings">
+              <MoreVertIcon />
             </IconButton>
           }
           title={heading}

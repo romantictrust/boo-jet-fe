@@ -11,11 +11,11 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import styles from "../styles/BudgetCardPopup.module.css";
-import useToggle from "../../../shared/hooks/useToggle";
-import validate, { validateAll } from "../../../shared/functions/validate";
-import usePrevious from "../../../shared/hooks/usePrevious";
-import { objIsEmpty } from "../../../shared/functions/isEmpty";
+import styles from "../../styles/BudgetCardPopup.module.css";
+import useToggle from "../../../../shared/hooks/useToggle";
+import validate, { validateAll } from "../../../../shared/functions/validate";
+import usePrevious from "../../../../shared/hooks/usePrevious";
+import { objIsEmpty } from "../../../../shared/functions/isEmpty";
 
 const errorsInitialState = {
   name: false,
@@ -147,14 +147,14 @@ export default function BudgetCardPopup({
                 select
                 required
                 error={errors.currency}
-                label="Select"
+                label="Currency"
                 fullWidth
                 value={form.currency?._id ?? form.currency}
                 onChange={(e) => handleCurrencyChange(e)}
               >
                 {currenciesList.map((currency) => (
                   <MenuItem key={currency._id} value={currency._id}>
-                    {currency.symbol}
+                    {currency.code}
                   </MenuItem>
                 ))}
               </TextField>

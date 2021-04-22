@@ -1,7 +1,7 @@
 import {
   budgetDelete,
   budgetEdit,
-} from "../../../../pages/MainPage/actions/budgetActions";
+} from "../../../../pages/MainPage/actions/budget";
 
 export const WidgetTypes = {
   BudgetGroups: 0,

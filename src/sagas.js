@@ -9,8 +9,13 @@ import {
   fetchPostBudget,
   fetchGetBudgets,
   fetchDeleteBudget,
-  fetchEditBudget
+  fetchEditBudget,
 } from "./pages/MainPage/sagas/budgetsSaga";
+import {
+  fetchPostBudgetAction,
+  fetchDeleteBudgetAction,
+  fetchEditBudgetAction,
+} from "./pages/MainPage/sagas/budgetActionsSaga";
 
 export default function* rootSaga() {
   yield all([
@@ -22,5 +27,8 @@ export default function* rootSaga() {
     fork(fetchGetBudgets),
     fork(fetchDeleteBudget),
     fork(fetchEditBudget),
+    fork(fetchPostBudgetAction),
+    fork(fetchDeleteBudgetAction),
+    fork(fetchEditBudgetAction),
   ]);
 }
