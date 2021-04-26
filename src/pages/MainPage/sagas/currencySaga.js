@@ -12,7 +12,6 @@ function* onCurrencyGet() {
   });
   const jsonResponse = yield response.json();
   if (response.status === 200) {
-    console.log(jsonResponse);
     yield put(currenciesList.success(jsonResponse));
   } else {
     yield put(snackbar.pushMessage({ text: jsonResponse.error }));

@@ -1,6 +1,7 @@
 .card {
-    height: 12em;
+    height: 100%;
     width: 100%;
+    background-color: var(--green-card-background-color) !important;
     border: 4px dashed var(--secondary-green-color) !important;
 }
 

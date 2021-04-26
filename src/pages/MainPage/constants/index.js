@@ -11,8 +11,8 @@ export const actionsCategories = [
 ];
 
 const actionsTypes = [
-  { id: 0, name: "profit (+)" },
-  { id: 1, name: "wastage (-)" },
+  { id: 0, name: "profit" },
+  { id: 1, name: "wastage" },
 ];
 
 export default actionsTypes;

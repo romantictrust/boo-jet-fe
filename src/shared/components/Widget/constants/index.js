@@ -5,6 +5,7 @@ import {
 
 export const WidgetTypes = {
   BudgetGroups: 0,
+  ActionsTable: 1,
 };
 
 export const WidgetMenuOperationsTypes = {
@@ -40,5 +41,8 @@ export const WidgetMenuOptions = {
   [WidgetTypes.BudgetGroups]: [
     WidgetMenuOperations[WidgetMenuOperationsTypes.Remove],
     WidgetMenuOperations[WidgetMenuOperationsTypes.Edit],
+  ],
+  [WidgetTypes.ActionsTable]: [
+    WidgetMenuOperations[WidgetMenuOperationsTypes.Remove],
   ],
 };

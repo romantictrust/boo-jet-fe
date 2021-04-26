@@ -52,7 +52,6 @@ function* onbudgetActionDelete(props) {
   });
   const jsonResponse = yield response.json();
   if (response.status === 200) {
-    console.log(jsonResponse);
     yield put(budgetActionDelete.success(jsonResponse));
   } else {
     yield put(snackbar.pushMessage({ text: jsonResponse.error }));

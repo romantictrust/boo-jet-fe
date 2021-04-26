@@ -27,29 +27,31 @@ export default function BudgetBlock({
   }, []);
 
   return (
-    <Paper className={styles.root}>
-      <Typography variant="h5" className={styles.heading}>
-        Budget groups
-      </Typography>
-      <Grid container spacing={2}>
-        {budgetsList.map((budget) => (
-          <BudgetCard
-            key={budget._id}
-            budget={budget}
+    <Grid item xs={12}>
+      <Paper className={styles.root}>
+        <Typography variant="h5" className={styles.heading}>
+          Budget groups
+        </Typography>
+        <Grid container spacing={2}>
+          {budgetsList.map((budget) => (
+            <BudgetCard
+              key={budget._id}
+              budget={budget}
+              onPushMessage={onPushMessage}
+              onPostBudgetAction={onPostBudgetAction}
+            />
+          ))}
+          <BudgetCardPopup
+            currenciesList={currenciesList}
+            editable={editable}
             onPushMessage={onPushMessage}
-            onPostBudgetAction={onPostBudgetAction}
+            onGetCurrencies={onGetCurrencies}
+            onBudgetEditOver={onBudgetEditOver}
+            onPostBudget={onPostBudget}
+            onEditBudget={onEditBudget}
           />
-        ))}
-        <BudgetCardPopup
-          currenciesList={currenciesList}
-          editable={editable}
-          onPushMessage={onPushMessage}
-          onGetCurrencies={onGetCurrencies}
-          onBudgetEditOver={onBudgetEditOver}
-          onPostBudget={onPostBudget}
-          onEditBudget={onEditBudget}
-        />
-      </Grid>
-    </Paper>
+        </Grid>
+      </Paper>
+    </Grid>
   );
 }

@@ -54,7 +54,6 @@ function* onBudgetsGet(props) {
   });
   const jsonResponse = yield response.json();
   if (response.status === 200) {
-    console.log(jsonResponse);
     yield put(budgetsGet.success(jsonResponse));
   } else {
     yield put(snackbar.pushMessage({ text: jsonResponse.error }));
@@ -81,7 +80,6 @@ function* onBudgetDelete(props) {
   });
   const jsonResponse = yield response.json();
   if (response.status === 200) {
-    console.log(jsonResponse);
     yield put(budgetDelete.success(jsonResponse));
   } else {
     yield put(snackbar.pushMessage({ text: jsonResponse.error }));

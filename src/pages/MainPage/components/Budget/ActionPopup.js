@@ -10,11 +10,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import styles from "../../styles/BudgetCardPopup.module.css";
-import useToggle from "../../../../shared/hooks/useToggle";
 import validate, { validateAll } from "../../../../shared/functions/validate";
 import usePrevious from "../../../../shared/hooks/usePrevious";
-import { objIsEmpty } from "../../../../shared/functions/isEmpty";
 import actionsTypes, { actionsCategories } from "../../constants";
 
 const errorsInitialState = {
@@ -162,7 +159,7 @@ export default function BudgetCardPopup({
             <Grid item xs={6}>
               <TextField
                 id="datetime-local"
-                label="Next appointment"
+                label="Action date"
                 type="datetime-local"
                 error={errors.date}
                 InputLabelProps={{

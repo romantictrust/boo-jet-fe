@@ -6,6 +6,11 @@ export const budgetsGetRoute = ORIGIN + "/budgets/";
 export const budgetDeleteRoute = ORIGIN + "/budgets/remove";
 export const budgetEditRoute = ORIGIN + "/budgets/edit";
 
+// Widgets
+export const widgetPostRoute = ORIGIN + "/widgets";
+export const widgetsGetRoute = ORIGIN + "/widgets/";
+export const widgetDeleteRoute = ORIGIN + "/widgets/remove";
+
 // Budget actions
 export const budgetActionPostRoute = ORIGIN + "/actions";
 export const budgetActionDeleteRoute = ORIGIN + "/actions/remove";
@@ -40,6 +45,13 @@ export const validationErrorMassages = {
       "Please pick category, if you don't know which category is your action, choose 'Other'",
     value: "Value should be greater than 0",
     date: "Please pick date",
+  },
+  widgets: {
+    name: "Widget name should contain more than 2 and less then 25 symbols",
+    type: "Please pick widget",
+    budget: "Please pick budget",
+    width: "Please choose wiget width",
+    period: "Date from shouldn't be greater than Date to value",
   },
 };
 

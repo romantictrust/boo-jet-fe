@@ -5,7 +5,7 @@ import { snackbar } from "../../../shared/components/Snackbar/actions";
 import { currenciesList } from "../actions/currency";
 import { budgetPost, budgetEdit, budgetsGet } from "../actions/budget";
 import { budgetActionPost } from "../actions/budgetActions";
-import { processBudgets } from "../selectors/currencySelectors";
+import { processBudgets } from "../selectors/budgetsSelectors";
 
 const BudgetBlockContainer = ({
   currenciesList,

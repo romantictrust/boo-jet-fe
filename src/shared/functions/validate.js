@@ -1,4 +1,6 @@
-import actionsTypes, {actionsCategories} from "../../pages/MainPage/constants";
+import actionsTypes, {
+  actionsCategories,
+} from "../../pages/MainPage/constants";
 import {
   dateReg,
   emailReg,
@@ -40,19 +42,25 @@ export const validate = {
   },
   actions: {
     name: (name) => name?.length > 2 && name?.length < 25,
-    type: (type) => {
-      return (
-        typeof actionsTypes.find((actionType) => type === actionType.id) ===
-        "object"
-      );
-    },
-    category: (category) => {
-      return (
-        typeof actionsCategories.find((actionCategory) => category === actionCategory.id) ===
-        "object"
-      );
-    },
+    type: (type) =>
+      actionsTypes.find((actionType) => type === actionType.id) !== undefined,
+    category: (category) =>
+      actionsCategories.find(
+        (actionCategory) => category === actionCategory.id
+      ) !== undefined,
     value: (value) => +value > 0,
     date: (date) => dateReg.test(date),
+  },
+  widgets: {
+    name: (name) => name?.length > 2 && name?.length < 25,
+    type: (type) => {
+      return typeof type === "number";
+    },
+    budget: (budget) => typeof budget === "object",
+    width: (width) => typeof width === "number",
+    period: ({ period, dateTo, dateFrom }) => {
+      if (!period) return true;
+      else return new Date(dateFrom).getTime() < new Date(dateTo).getTime();
+    },
   },
 };

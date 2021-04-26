@@ -1,0 +1,25 @@
+.widgetsContainer {
+border-radius: 5px;
+background-color: rgba(170, 170, 170, 0.164);
+}
+
+.card {
+    display: grid;
+    justify-content: center;
+    background-color: aliceblue !important;
+}
+
+.header {
+    padding-left: 2em;
+    padding-bottom: 0px !important;
+}
+
+.iconContainer {
+    padding: 0px !important;
+}
+
+.icon {
+    width: 100%;
+    color: rgba(51, 163, 98, 0.541) !important;
+    font-size: 9rem !important;
+}

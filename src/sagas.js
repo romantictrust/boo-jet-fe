@@ -12,6 +12,11 @@ import {
   fetchEditBudget,
 } from "./pages/MainPage/sagas/budgetsSaga";
 import {
+  fetchPostWidget,
+  fetchGetWidgets,
+  fetchDeleteWidget,
+} from "./pages/MainPage/sagas/widgetsSaga";
+import {
   fetchPostBudgetAction,
   fetchDeleteBudgetAction,
   fetchEditBudgetAction,
@@ -30,5 +35,8 @@ export default function* rootSaga() {
     fork(fetchPostBudgetAction),
     fork(fetchDeleteBudgetAction),
     fork(fetchEditBudgetAction),
+    fork(fetchPostWidget),
+    fork(fetchGetWidgets),
+    fork(fetchDeleteWidget),
   ]);
 }
