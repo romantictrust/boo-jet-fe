@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 
-import TableWidget from "./table";
 import Widget from "../../../../shared/components/Widget";
-import { WidgetTypes } from "../../../../shared/components/Widget/constants";
 import usePrevious from "../../../../shared/hooks/usePrevious";
-import { prepareActions } from "../../utils/prepareActions";
+import { humanizeActions } from "../../utils/prepareActions";
+import getWidgetContentByType from "./utils/getWidgetContentByType";
 
 export default function WidgetsBlock({ widgets, budgetsList, onGetWidgets }) {
   const prevBudgetsList = usePrevious(budgetsList);
@@ -21,15 +20,19 @@ export default function WidgetsBlock({ widgets, budgetsList, onGetWidgets }) {
           <Widget
             key={widget.id}
             widgetType={widget.type}
+            data={widget}
             heading={widget.name}
             width={widget.width}
           >
-            <TableWidget
-              actions={prepareActions(
-                widget.budget.actions,
-                widget.budget.currency.symbol
+            {widget.budget &&
+              getWidgetContentByType(
+                widget.type,
+                humanizeActions(
+                  widget.budget.actions,
+                  widget.budget.currency.symbol
+                ),
+                widget.budget._id
               )}
-            />
           </Widget>
         ))
       ) : (

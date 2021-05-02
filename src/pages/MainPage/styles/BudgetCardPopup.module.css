@@ -1,4 +1,8 @@
 .card {
+    min-width: 20em;
+}
+
+.button {
     height: 100%;
     width: 100%;
     background-color: var(--green-card-background-color) !important;
@@ -10,3 +14,9 @@
     width: 40px;
     color: var(--secondary-green-color);
 }
+
+@media only screen and (max-width: 600px) {
+    .card {
+      min-width: 100%;
+    }
+  }

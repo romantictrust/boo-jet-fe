@@ -1,6 +1,5 @@
-export const processWidgets = (state, processBudgets) => {
+export const processWidgets = (state, budgets) => {
   const widgets = state.mainPage.widgets.data;
-  const budgets = processBudgets(state);
   if (widgets.length !== 0 && budgets !== 0) {
     let processedWidgets = widgets.map((widget) => ({
       ...widget,

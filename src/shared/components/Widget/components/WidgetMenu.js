@@ -5,12 +5,18 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import { WidgetMenuOptions } from "../constants";
 
-export default function WidgetMenu({ widgetType, data, anchorEl, onClose }) {
+export default function WidgetMenu({
+  widgetType,
+  data,
+  isPreview,
+  anchorEl,
+  onClose,
+}) {
   const dispatch = useDispatch();
   return (
     <Menu
       id="widget-menu"
-      style={{left: '-4em'}}
+      style={{ left: "-4em" }}
       anchorEl={anchorEl}
       keepMounted
       open={Boolean(anchorEl)}
@@ -21,7 +27,11 @@ export default function WidgetMenu({ widgetType, data, anchorEl, onClose }) {
             return (
               <MenuItem
                 key={key}
-                onClick={() => option.method(widgetType, data, dispatch)}
+                onClick={() =>
+                  isPreview
+                    ? alert("This is a preview mode")
+                    : option.method(widgetType, data, dispatch)
+                }
               >
                 {option.title}
               </MenuItem>

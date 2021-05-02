@@ -17,8 +17,6 @@ export const budgetActionPost = {
 export const BUDGET_ACTION_EDIT = createRequestTypes("BUDGET_ACTION_EDIT");
 
 export const budgetActionEdit = {
-  edit: (payload) => action("BUDGET_ACTION_EDIT", payload),
-  deny: () => action("BUDGET_ACTION_EDIT_DENY"),
   request: (payload) => action(BUDGET_ACTION_EDIT[REQUEST], payload),
   success: (payload) => action(BUDGET_ACTION_EDIT[SUCCESS], payload),
   failure: () => action(BUDGET_ACTION_EDIT[FAILURE]),

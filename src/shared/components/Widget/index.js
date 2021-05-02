@@ -10,7 +10,14 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import styles from "./styles/Widget.module.css";
 import WidgetMenu from "./components/WidgetMenu";
 
-export default function Widget({ widgetType, heading, children, width = 12 }) {
+export default function Widget({
+  widgetType,
+  data,
+  heading,
+  children,
+  width = 12,
+  isPreview = false,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -38,9 +45,13 @@ export default function Widget({ widgetType, heading, children, width = 12 }) {
         <WidgetMenu
           widgetType={widgetType}
           anchorEl={anchorEl}
+          data={data}
+          isPreview={isPreview}
           onClose={handleClose}
         />
-        <CardContent>{children}</CardContent>
+        <CardContent className={isPreview ? styles.disabled : null}>
+          {children}
+        </CardContent>
         {/* <CardActions disableSpacing>
         </CardActions> */}
       </Card>

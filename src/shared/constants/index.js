@@ -31,7 +31,7 @@ export const validationErrorMassages = {
     userName: "Username should contain more than 2 and less then 25 symbols",
     email: "Invalid email",
     password:
-      "Password should contain at least one digit, one lower case and least 8 characters",
+      "Password should contain minimum eight characters, at least one letter and one number",
   },
   budget: {
     name: "Budget name should contain more than 2 and less then 25 symbols",
@@ -61,7 +61,4 @@ export const dateReg = new RegExp(/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d/);
 export const emailReg = new RegExp(
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 );
-export const passReg = new RegExp(/^(?=.*\d)[0-9a-z]{7,}$/);
-//   (?=.*\d)          // should contain at least one digit
-//   (?=.*[a-z])       // should contain at least one lower case
-//   [a-zA-Z0-9]{7,}   // should contain at least 8 from the mentioned characters
+export const passReg = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);

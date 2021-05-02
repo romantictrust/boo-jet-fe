@@ -3,9 +3,12 @@ import {
   budgetEdit,
 } from "../../../../pages/MainPage/actions/budget";
 
+import { widgetDelete } from "../../../../pages/MainPage/actions/widgets";
+
 export const WidgetTypes = {
   BudgetGroups: 0,
   ActionsTable: 1,
+  DataGrid: 2,
 };
 
 export const WidgetMenuOperationsTypes = {
@@ -20,6 +23,7 @@ export const WidgetMenuOperations = {
     method: (widgetType, data, dispatch) => {
       if (widgetType === WidgetTypes.BudgetGroups)
         dispatch(budgetDelete.request(data));
+      else dispatch(widgetDelete.request(data));
     },
   },
   [WidgetMenuOperationsTypes.Rename]: {
@@ -43,6 +47,9 @@ export const WidgetMenuOptions = {
     WidgetMenuOperations[WidgetMenuOperationsTypes.Edit],
   ],
   [WidgetTypes.ActionsTable]: [
+    WidgetMenuOperations[WidgetMenuOperationsTypes.Remove],
+  ],
+  [WidgetTypes.DataGrid]: [
     WidgetMenuOperations[WidgetMenuOperationsTypes.Remove],
   ],
 };

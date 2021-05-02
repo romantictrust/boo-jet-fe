@@ -5,6 +5,7 @@ export const processBudgets = (state) => {
   return budgetsCopy.map((budget) => {
     const processedActions = budget.actions.map((budgetAction) => ({
       ...budgetAction,
+      id: budgetAction._id,
       date: budgetAction.date.slice(0, 16),
     }));
     const processedCurrency = currencies.find(

@@ -9,7 +9,9 @@ import Badge from "@material-ui/core/Badge";
 import Button from "@material-ui/core/Button";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import CheckIcon from "@material-ui/icons/Check";
+
 import TableChartIcon from "@material-ui/icons/TableChart";
+import GridOnIcon from "@material-ui/icons/GridOn";
 
 import styles from "../../../styles/WidgetTypeForm.module.css";
 import { WidgetTypes } from "../../../../../shared/components/Widget/constants";
@@ -19,6 +21,11 @@ const widgets = [
     id: WidgetTypes.ActionsTable,
     name: "Actions Table",
     icon: <TableChartIcon className={styles.icon} />,
+  },
+  {
+    id: WidgetTypes.DataGrid,
+    name: "Data grid",
+    icon: <GridOnIcon className={styles.icon} />,
   },
 ];
 

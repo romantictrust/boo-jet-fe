@@ -11,8 +11,8 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import validate, { validateAll } from "../../../../shared/functions/validate";
-import usePrevious from "../../../../shared/hooks/usePrevious";
 import actionsTypes, { actionsCategories } from "../../constants";
+import { objIsEmpty } from "../../../../shared/functions/isEmpty";
 
 const errorsInitialState = {
   type: false,
@@ -22,17 +22,24 @@ const errorsInitialState = {
   date: false,
 };
 
-export default function BudgetCardPopup({
+export default function ActionPopup({
+  action = {},
   budgetId,
   onActionsClose,
   onPushMessage,
   onPostBudgetAction,
+  onEditBudgetAction,
 }) {
   const [form, setFormValues] = useState({
     date: new Date(Date.now()).toISOString().slice(0, 16),
   });
   const [errors, setErrors] = useState(errorsInitialState);
-  const prevOpenedState = usePrevious();
+
+  const editable = !objIsEmpty(action);
+
+  useEffect(() => {
+    if (editable) setFormValues(action);
+  }, []);
 
   const handleTypeChange = (e) => {
     setFormValues({ ...form, type: e.target.value });
@@ -69,10 +76,25 @@ export default function BudgetCardPopup({
 
     if (isValid) {
       const budgetAсtion = { name, type, category, date, value };
-      //   editMode
-      //     ? onEditBudget({ ...budget, _id: _id })
-      //     : onPostBudget({ ...budget });
-      onPostBudgetAction({ budgetId, budgetAсtion });
+
+      editable
+        ? onEditBudgetAction({
+            budgetId,
+            action: {
+              _id: form._id,
+              name,
+              type,
+              category,
+              date,
+              value,
+              prevAction: action.type,
+              prevValue: action.value,
+            },
+          })
+        : onPostBudgetAction({
+            budgetId,
+            budgetAсtion,
+          });
       onActionsClose();
     }
   };
@@ -84,7 +106,9 @@ export default function BudgetCardPopup({
         onClose={onActionsClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Add action</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          {editable ? "Edit" : "Add"} action
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Action is an operation on budget. Ex. Payroll or taxes.
@@ -176,7 +200,7 @@ export default function BudgetCardPopup({
             Cancel
           </Button>
           <Button type="submit" onClick={handleformSubmit} color="primary">
-            Add action
+            {editable ? "Edit" : "Add"}
           </Button>
         </DialogActions>
       </Dialog>

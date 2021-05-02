@@ -106,11 +106,11 @@ export default function BudgetCardPopup({
 
   return (
     <>
-      <Grid item xs={4}>
+      <Grid className={styles.card} item xs={4}>
         <Button
           variant="contained"
           color="default"
-          className={styles.card}
+          className={styles.button}
           onClick={toggleAddCardModal}
         >
           <AddCircleOutlineIcon className={styles.icon} fontSize="large" />

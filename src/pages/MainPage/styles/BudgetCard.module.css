@@ -1,8 +1,15 @@
 .card {
-background-color: var(--green-card-background-color) !important;
+min-width: 20em;
 }
 
 .addActionButton {
 color: var(--primary-green-color);
 font-size: xx-large !important;
 }
+
+@media only screen and (max-width: 600px) {
+    .card {
+      min-width: 100%;
+    }
+  }
+  

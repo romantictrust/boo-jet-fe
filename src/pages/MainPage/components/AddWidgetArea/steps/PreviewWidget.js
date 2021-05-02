@@ -1,17 +1,22 @@
 import React from "react";
 
-import TableWidget from "../../Widgets/table";
-import { prepareActions } from "../../../utils/prepareActions";
+import { humanizeActions } from "../../../utils/prepareActions";
 import Widget from "../../../../../shared/components/Widget";
+import getWidgetContentByType from "../../Widgets/utils/getWidgetContentByType";
 
 export default function PreviewWidget({ form }) {
-  const actions = prepareActions(
-    form.budget.actions,
-    form.budget.currency.symbol
-  );
   return (
-    <Widget  widgetType={form.type} heading={form.name} width={form.width}>
-      <TableWidget actions={actions} />
+    <Widget
+      widgetType={form.type}
+      heading={form.name}
+      width={form.width}
+      isPreview
+    >
+      {getWidgetContentByType(
+        form.type,
+        humanizeActions(form.budget.actions, form.budget.currency.symbol),
+        form.budget._id
+      )}
     </Widget>
   );
 }

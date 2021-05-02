@@ -147,6 +147,7 @@ export default function AddWidgetPopup({
       dateTo: period ? dateTo : "",
       dateFrom: period ? dateFrom : "",
     });
+    handleFormClose();
   };
 
   const handleFormClose = () => {

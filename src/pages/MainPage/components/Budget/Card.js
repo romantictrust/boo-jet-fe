@@ -33,8 +33,8 @@ export default function BudgetCard({
   };
 
   return (
-    <Grid item xs={4}>
-      <Card className={styles.card} style={{ backgroundColor: budget.color }}>
+    <Grid className={styles.card} item xs={4}>
+      <Card style={{ backgroundColor: budget.color }}>
         <CardHeader
           className={styles.heading}
           action={

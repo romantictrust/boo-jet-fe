@@ -18,9 +18,10 @@ const WidgetsBlockContainer = ({ widgets, budgetsList, onGetWidgets }) => {
 };
 
 const mapStateToProps = (state) => {
+  const budgets = processBudgets(state);
   return {
-    widgets: processWidgets(state, processBudgets),
-    budgetsList: processBudgets(state),
+    widgets: processWidgets(state, budgets),
+    budgetsList: budgets,
   };
 };
 

@@ -19,7 +19,7 @@ background-color: rgba(170, 170, 170, 0.164);
 }
 
 .icon {
-    width: 100%;
+    min-width: 1.3em;
     color: rgba(51, 163, 98, 0.541) !important;
     font-size: 9rem !important;
 }

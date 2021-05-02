@@ -5,6 +5,8 @@ import Header from "../Header/components/Header";
 import Content from "./components/Content";
 import Snackbar from "../Snackbar";
 
+import styles from "./styles/Page.module.css";
+
 export default function Page({ isHeadered = true, children }) {
   return (
     <Grid container direction="column">
@@ -13,7 +15,7 @@ export default function Page({ isHeadered = true, children }) {
           <Header />
         </Grid>
       )}
-      <Grid item>
+      <Grid className={styles.root} item>
         <SnackbarProvider maxSnack={5}>
           <Content content={children} />
           <Snackbar />
