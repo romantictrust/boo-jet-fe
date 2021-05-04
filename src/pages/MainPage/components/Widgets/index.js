@@ -18,7 +18,7 @@ export default function WidgetsBlock({ widgets, budgetsList, onGetWidgets }) {
       {widgets.length !== 0 ? (
         widgets.map((widget) => (
           <Widget
-            key={widget.id}
+            key={widget.id || widget._id}
             widgetType={widget.type}
             data={widget}
             heading={widget.name}

@@ -7,3 +7,13 @@ export const findEarliest = (actions) => {
     return sortedActions[0].date;
   } else return new Date(Date.now()).toISOString().slice(0, 16);
 };
+
+export const findLatest = (actions) => {
+  if (actions.length !== 0) {
+    let sortedActions = [...actions];
+    sortedActions.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+    return sortedActions[0].date;
+  } else return new Date(Date.now()).toISOString().slice(0, 16);
+};

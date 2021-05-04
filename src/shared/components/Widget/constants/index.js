@@ -9,6 +9,10 @@ export const WidgetTypes = {
   BudgetGroups: 0,
   ActionsTable: 1,
   DataGrid: 2,
+  PChartWP: 3,
+  TimeLineChart: 4,
+  CategoriesWastagePie: 5,
+  CategoriesProfitPie: 6,
 };
 
 export const WidgetMenuOperationsTypes = {
@@ -50,6 +54,18 @@ export const WidgetMenuOptions = {
     WidgetMenuOperations[WidgetMenuOperationsTypes.Remove],
   ],
   [WidgetTypes.DataGrid]: [
+    WidgetMenuOperations[WidgetMenuOperationsTypes.Remove],
+  ],
+  [WidgetTypes.PChartWP]: [
+    WidgetMenuOperations[WidgetMenuOperationsTypes.Remove],
+  ],
+  [WidgetTypes.TimeLineChart]: [
+    WidgetMenuOperations[WidgetMenuOperationsTypes.Remove],
+  ],
+  [WidgetTypes.CategoriesProfitPie]: [
+    WidgetMenuOperations[WidgetMenuOperationsTypes.Remove],
+  ],
+  [WidgetTypes.CategoriesWastagePie]: [
     WidgetMenuOperations[WidgetMenuOperationsTypes.Remove],
   ],
 };

@@ -12,6 +12,8 @@ import CheckIcon from "@material-ui/icons/Check";
 
 import TableChartIcon from "@material-ui/icons/TableChart";
 import GridOnIcon from "@material-ui/icons/GridOn";
+import PieChartIcon from "@material-ui/icons/PieChart";
+import TimelineIcon from "@material-ui/icons/Timeline";
 
 import styles from "../../../styles/WidgetTypeForm.module.css";
 import { WidgetTypes } from "../../../../../shared/components/Widget/constants";
@@ -26,6 +28,26 @@ const widgets = [
     id: WidgetTypes.DataGrid,
     name: "Data grid",
     icon: <GridOnIcon className={styles.icon} />,
+  },
+  {
+    id: WidgetTypes.PChartWP,
+    name: "W/P Pie Chart",
+    icon: <PieChartIcon className={styles.icon} />,
+  },
+  {
+    id: WidgetTypes.TimeLineChart,
+    name: "Timeline Chart",
+    icon: <TimelineIcon className={styles.icon} />,
+  },
+  {
+    id: WidgetTypes.CategoriesProfitPie,
+    name: "Category/W Pie",
+    icon: <PieChartIcon className={styles.icon} />,
+  },
+  {
+    id: WidgetTypes.CategoriesWastagePie,
+    name: "Category/P Pie",
+    icon: <PieChartIcon className={styles.icon} />,
   },
 ];
 
@@ -50,7 +72,7 @@ export default function WidgetTypeForm({ type, onTypeChange }) {
                   <CardHeader
                     className={styles.header}
                     title={
-                      <Typography variant="h6" component="h1">
+                      <Typography variant="subtitle1" component="h1">
                         {widget.name}
                       </Typography>
                     }
