@@ -16,7 +16,7 @@ function SimpleSnackbar({ messages, onClearMessage }) {
           variant: message.snackbarType,
           key: message.id,
           persist: !message.autoHide,
-          autoHideDuration: 5000,
+          autoHideDuration: 5500,
           action:
             message.actionText && message.action
               ? (key) => (

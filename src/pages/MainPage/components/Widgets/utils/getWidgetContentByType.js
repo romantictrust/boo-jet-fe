@@ -17,26 +17,29 @@ import {
   findLatest,
 } from "../../../../../shared/functions/dates";
 
-export default function getWidgetContentByType(type, actions, budgetId) {
+export default function getWidgetContentByType(form, actions) {
+  let { type, dateFrom, dateTo } = form || {};
+  dateFrom = dateFrom?.slice(0, 16).replace("T", " ");
+  dateTo = dateTo?.slice(0, 16).replace("T", " ");
   switch (type) {
     case WidgetTypes.ActionsTable:
       return <TableWidget actions={actions} />;
     case WidgetTypes.DataGrid:
-      return <DataGrid budgetId={budgetId} actions={actions} />;
+      return <DataGrid budgetId={form.budget._id} actions={actions} />;
     case WidgetTypes.PChartWP:
       return (
         <PChartWP
           data={processPChartWP(actions)}
-          dateFrom={findEarliest(actions)}
-          dateTo={findLatest(actions)}
+          dateFrom={dateFrom || findEarliest(actions)}
+          dateTo={dateTo || findLatest(actions)}
         />
       );
     case WidgetTypes.TimeLineChart:
       return (
         <TimeLineChart
           data={processTimeLineChart(actions)}
-          dateFrom={findEarliest(actions)}
-          dateTo={findLatest(actions)}
+          dateFrom={dateFrom || findEarliest(actions)}
+          dateTo={dateTo || findLatest(actions)}
         />
       );
     case WidgetTypes.CategoriesWastagePie:
@@ -47,8 +50,8 @@ export default function getWidgetContentByType(type, actions, budgetId) {
             actions,
             type === WidgetTypes.CategoriesWastagePie
           )}
-          dateFrom={findEarliest(actions)}
-          dateTo={findLatest(actions)}
+          dateFrom={dateFrom || findEarliest(actions)}
+          dateTo={dateTo || findLatest(actions)}
         />
       );
     default:

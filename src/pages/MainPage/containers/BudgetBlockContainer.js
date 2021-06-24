@@ -11,6 +11,7 @@ const BudgetBlockContainer = ({
   currenciesList,
   budgetsList,
   editable,
+  isLoading,
   onPushMessage,
   onGetCurrencies,
   onPostBudget,
@@ -24,6 +25,7 @@ const BudgetBlockContainer = ({
       currenciesList={currenciesList}
       budgetsList={budgetsList}
       editable={editable}
+      isLoading={isLoading}
       onPushMessage={onPushMessage}
       onGetCurrencies={onGetCurrencies}
       onPostBudget={onPostBudget}
@@ -40,6 +42,7 @@ const mapStateToProps = (state) => {
     currenciesList: state.mainPage.currency.currencyData,
     budgetsList: processBudgets(state),
     editable: state.mainPage.budgets.editable,
+    isLoading: state.mainPage.budgets.loading,
   };
 };
 

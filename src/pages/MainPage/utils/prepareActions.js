@@ -1,6 +1,6 @@
 import actionsTypes, { actionsCategories } from "../constants";
 
-export const humanizeActions = (actions, currency) => {
+export const humanizeActions = (actions, currency, dateFrom, dateTo) => {
   let processedActions = actions.map((action) => ({
     ...action,
     type: findNameById(action.type, "type"),
@@ -8,7 +8,19 @@ export const humanizeActions = (actions, currency) => {
     date: action.date.replace("T", " "),
     value: action.value + currency,
   }));
-  return processedActions;
+
+  processedActions =
+    dateFrom && dateTo
+      ? processedActions.filter((action) => {
+          const actionDate = new Date(action.date).getTime();
+          const earliestDate = new Date(dateFrom).getTime();
+          const latestDate = new Date(dateTo).getTime();
+          return actionDate > earliestDate && actionDate < latestDate;
+        })
+      : processedActions;
+  return processedActions.sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
 };
 
 const findNameById = (id, fieldName) => {

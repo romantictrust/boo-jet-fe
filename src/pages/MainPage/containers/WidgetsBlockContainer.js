@@ -7,12 +7,19 @@ import { processBudgets } from "../selectors/budgetsSelectors";
 import { processWidgets } from "../selectors/widgetsSelectors";
 import { widgetsGet } from "../actions/widgets";
 
-const WidgetsBlockContainer = ({ widgets, budgetsList, onGetWidgets }) => {
+const WidgetsBlockContainer = ({
+  widgets,
+  budgetsList,
+  onGetWidgets,
+  isLoading,
+  budgetIsUpdating,
+}) => {
   return (
     <WidgetsBlock
       budgetsList={budgetsList}
       widgets={widgets}
       onGetWidgets={onGetWidgets}
+      isLoading={isLoading || budgetIsUpdating}
     />
   );
 };
@@ -22,6 +29,8 @@ const mapStateToProps = (state) => {
   return {
     widgets: processWidgets(state, budgets),
     budgetsList: budgets,
+    isLoading: state.mainPage.widgets.loading,
+    budgetIsUpdating: state.mainPage.budgets.loading,
   };
 };
 

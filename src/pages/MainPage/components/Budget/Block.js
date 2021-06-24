@@ -6,13 +6,16 @@ import Typography from "@material-ui/core/Typography";
 
 import BudgetCard from "./Card";
 import BudgetCardPopup from "./CardPopup";
+import LoadingWrapper from "../../../../shared/components/LoadingWrapper";
 
 import styles from "../../styles/BudgetBlock.module.css";
+
 
 export default function BudgetBlock({
   currenciesList,
   budgetsList,
   editable,
+  isLoading,
   onPushMessage,
   onGetCurrencies,
   onPostBudget,
@@ -25,33 +28,34 @@ export default function BudgetBlock({
     if (currenciesList.length === 0) onGetCurrencies();
     if (budgetsList.length === 0) onGetBudget();
   }, []);
-
   return (
-    <Grid item xs={12}>
-      <Paper className={styles.root}>
-        <Typography variant="h5" className={styles.heading}>
-          Budget groups
-        </Typography>
-        <Grid container spacing={2}>
-          {budgetsList.map((budget) => (
-            <BudgetCard
-              key={budget._id}
-              budget={budget}
+    <LoadingWrapper isLoading={isLoading}>
+      <Grid item xs={12}>
+        <Paper className={styles.root}>
+          <Typography variant="h5" className={styles.heading}>
+            Budget groups
+          </Typography>
+          <Grid container spacing={2}>
+            {budgetsList.map((budget) => (
+              <BudgetCard
+                key={budget._id}
+                budget={budget}
+                onPushMessage={onPushMessage}
+                onPostBudgetAction={onPostBudgetAction}
+              />
+            ))}
+            <BudgetCardPopup
+              currenciesList={currenciesList}
+              editable={editable}
               onPushMessage={onPushMessage}
-              onPostBudgetAction={onPostBudgetAction}
+              onGetCurrencies={onGetCurrencies}
+              onBudgetEditOver={onBudgetEditOver}
+              onPostBudget={onPostBudget}
+              onEditBudget={onEditBudget}
             />
-          ))}
-          <BudgetCardPopup
-            currenciesList={currenciesList}
-            editable={editable}
-            onPushMessage={onPushMessage}
-            onGetCurrencies={onGetCurrencies}
-            onBudgetEditOver={onBudgetEditOver}
-            onPostBudget={onPostBudget}
-            onEditBudget={onEditBudget}
-          />
-        </Grid>
-      </Paper>
-    </Grid>
+          </Grid>
+        </Paper>
+      </Grid>
+    </LoadingWrapper>
   );
 }

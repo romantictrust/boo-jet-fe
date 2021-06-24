@@ -13,9 +13,13 @@ export default function PreviewWidget({ form }) {
       isPreview
     >
       {getWidgetContentByType(
-        form.type,
-        humanizeActions(form.budget.actions, form.budget.currency.symbol),
-        form.budget._id
+        form,
+        humanizeActions(
+          form.budget.actions,
+          form.budget.currency.symbol,
+          form.dateFrom,
+          form.dateTo
+        ),
       )}
     </Widget>
   );
