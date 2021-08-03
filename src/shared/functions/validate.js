@@ -25,7 +25,7 @@ const validateField = (
 };
 export default validateField;
 
-export const validateAll = (...validators) => {
+export const validateAll = (validators) => {
   return !validators.includes(false);
 };
 

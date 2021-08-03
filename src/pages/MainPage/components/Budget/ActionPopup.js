@@ -10,17 +10,21 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import validate, { validateAll } from "../../../../shared/functions/validate";
 import actionsTypes, { actionsCategories } from "../../constants";
 import { objIsEmpty } from "../../../../shared/functions/isEmpty";
+import useValidate from "../../../../shared/hooks/useValidate";
 
-const errorsInitialState = {
-  type: false,
-  category: false,
-  name: false,
-  value: false,
-  date: false,
-};
+const fields = [
+  { name: "type", module: "actions" },
+  { name: "category", module: "actions" },
+  { name: "name", module: "actions" },
+  { name: "value", module: "actions" },
+  {
+    name: "date",
+    module: "actions",
+    value: new Date(Date.now()).toISOString().slice(0, 16),
+  },
+];
 
 export default function ActionPopup({
   action = {},
@@ -30,58 +34,27 @@ export default function ActionPopup({
   onPostBudgetAction,
   onEditBudgetAction,
 }) {
-  const [form, setFormValues] = useState({
-    date: new Date(Date.now()).toISOString().slice(0, 16),
-  });
-  const [errors, setErrors] = useState(errorsInitialState);
+  const [validationFields, handlers, errors, isValid, validate] = useValidate(
+    fields.map((field) => ({
+      ...field,
+      value: action?.[field.name] ?? field?.value ?? "",
+    })),
+    onPushMessage
+  );
 
   const editable = !objIsEmpty(action);
-
-  useEffect(() => {
-    if (editable) setFormValues(action);
-  }, []);
-
-  const handleTypeChange = (e) => {
-    setFormValues({ ...form, type: e.target.value });
-  };
-
-  const handleCategoryChange = (e) => {
-    setFormValues({ ...form, category: e.target.value });
-  };
-
-  const handleNameChange = (e) => {
-    setFormValues({ ...form, name: e.target.value });
-  };
-
-  const handleValueChange = (e) => {
-    setFormValues({ ...form, value: e.target.value });
-  };
-
-  const handleDateChange = (e) => {
-    setFormValues({ ...form, date: e.target.value });
-  };
 
   const handleformSubmit = (e) => {
     e.preventDefault();
 
-    const { name, type, value, category, date } = form;
-
-    const isValid = validateAll(
-      validate("actions", "name", name, setErrors, onPushMessage),
-      validate("actions", "type", type, setErrors, onPushMessage),
-      validate("actions", "category", category, setErrors, onPushMessage),
-      validate("actions", "value", value, setErrors, onPushMessage),
-      validate("actions", "date", date, setErrors, onPushMessage)
-    );
-
-    if (isValid) {
+    if (validate()) {
+      const { name, type, category, date, value } = validationFields;
       const budgetAсtion = { name, type, category, date, value };
-
       editable
         ? onEditBudgetAction({
             budgetId,
             action: {
-              _id: form._id,
+              _id: action._id,
               name,
               type,
               category,
@@ -124,8 +97,8 @@ export default function ActionPopup({
                 label="Description"
                 type="name"
                 fullWidth
-                value={form.name}
-                onChange={(e) => handleNameChange(e)}
+                value={validationFields.name}
+                onChange={handlers.name}
               />
             </Grid>
             <Grid item xs={6}>
@@ -136,8 +109,8 @@ export default function ActionPopup({
                 error={errors.type}
                 label="Type"
                 fullWidth
-                value={form.type}
-                onChange={(e) => handleTypeChange(e)}
+                value={validationFields.type}
+                onChange={handlers.type}
               >
                 {actionsTypes.map((action) => (
                   <MenuItem key={action.id} value={action.id}>
@@ -154,8 +127,8 @@ export default function ActionPopup({
                 error={errors.category}
                 label="Category"
                 fullWidth
-                value={form.category}
-                onChange={(e) => handleCategoryChange(e)}
+                value={validationFields.category}
+                onChange={handlers.category}
               >
                 {actionsCategories.map((category) => (
                   <MenuItem key={category.id} value={category.id}>
@@ -176,8 +149,8 @@ export default function ActionPopup({
                 InputLabelProps={{
                   shrink: true,
                 }}
-                value={form.value}
-                onChange={(e) => handleValueChange(e)}
+                value={validationFields.value}
+                onChange={handlers.value}
               />
             </Grid>
             <Grid item xs={6}>
@@ -189,8 +162,8 @@ export default function ActionPopup({
                 InputLabelProps={{
                   shrink: true,
                 }}
-                value={form.date}
-                onChange={(e) => handleDateChange(e)}
+                value={validationFields.date}
+                onChange={handlers.date}
               />
             </Grid>
           </Grid>

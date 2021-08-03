@@ -9,27 +9,24 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import styles from "../styles/RegisterPage.module.css";
-import validate, { validateAll } from "../../../shared/functions/validate";
+import useValidate from "../../../shared/hooks/useValidate";
+
+const fields = [
+  { name: "email", module: "auth" },
+  { name: "password", module: "auth" },
+  { name: "userName", module: "auth" },
+];
 
 export default function SignUp({ onSendUser, onPushMessage }) {
-  const [errors, setErrors] = useState({
-    email: false,
-    password: false,
-    userName: false,
-  });
+  const [validationFields, handlers, errors, isValid, validate] = useValidate(
+    fields,
+    onPushMessage
+  );
+
   const confirmReg = (event) => {
     event.preventDefault();
-    const email = SignUp.email.value;
-    const password = SignUp.password.value;
-    const userName = SignUp.userName.value;
-
-    const isValid = validateAll(
-      validate("auth", "email", email, setErrors, onPushMessage),
-      validate("auth", "password", password, setErrors, onPushMessage),
-      validate("auth", "userName", userName, setErrors, onPushMessage)
-    );
-
-    if (isValid) {
+    const { email, password, userName } = validationFields;
+    if (validate()) {
       onSendUser({
         user: {
           email,
@@ -68,9 +65,7 @@ export default function SignUp({ onSendUser, onPushMessage }) {
                 id="userName"
                 label="Username"
                 autoFocus
-                inputRef={(el) => {
-                  SignUp.userName = el;
-                }}
+                onChange={handlers.userName}
               />
             </Grid>
             <Grid item xs={12}>
@@ -83,9 +78,7 @@ export default function SignUp({ onSendUser, onPushMessage }) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                inputRef={(el) => {
-                  SignUp.email = el;
-                }}
+                onChange={handlers.email}
               />
             </Grid>
             <Grid item xs={12}>
@@ -99,9 +92,7 @@ export default function SignUp({ onSendUser, onPushMessage }) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                inputRef={(el) => {
-                  SignUp.password = el;
-                }}
+                onChange={handlers.password}
               />
             </Grid>
           </Grid>

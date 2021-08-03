@@ -7,11 +7,15 @@ import rootReducer from "./reducers";
 
 const localStorageMiddleware = ({ getState }) => {
   return (next) => (action) => {
-    const result = next(action);
-    if ([USER_SIGN_IN.SUCCESS].includes(result.type)) {
-      localStorage.setItem("user", JSON.stringify(result.payload.user));
+    try {
+      const result = next(action);
+      if ([USER_SIGN_IN.SUCCESS].includes(result.type)) {
+        localStorage.setItem("user", JSON.stringify(result.payload.user));
+      }
+      return result;
+    } catch (e) {
+      console.error(e);
     }
-    return result;
   };
 };
 

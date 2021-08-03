@@ -125,7 +125,7 @@ export default function WidgetPopup({
     }
     if (step === 1) {
       if (
-        !validateAll(
+        !validateAll([
           validate("widgets", "name", form.name, setErrors, onPushMessage),
           validate("widgets", "budget", form.budget, setErrors, onPushMessage),
           validate("widgets", "width", form.width, setErrors, onPushMessage),
@@ -139,8 +139,8 @@ export default function WidgetPopup({
             },
             setErrors,
             onPushMessage
-          )
-        )
+          ),
+        ])
       )
         return true;
     }

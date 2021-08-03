@@ -10,26 +10,29 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import styles from "../styles/AuthPage.module.css";
 import usePrevious from "../../../shared/hooks/usePrevious";
-import validate, { validateAll } from "../../../shared/functions/validate";
+import useValidate from "../../../shared/hooks/useValidate";
+
+const fields = [
+  { name: "email", module: "auth" },
+  { name: "password", module: "auth" },
+];
 
 function SignIn({ history, user, onSendUser, onPushMessage }) {
-  const [errors, setErrors] = useState({
-    email: false,
-    password: false,
-  });
+  const [validationFields, handlers, errors, isValid, validate] = useValidate(
+    fields,
+    onPushMessage
+  );
   const prevUser = usePrevious(user);
   const confirmAuth = async (event) => {
     event.preventDefault();
-    const email = SignIn.email.value;
-    const password = SignIn.password.value;
 
-    const isValid = validateAll(
-      validate("auth", "email", email, setErrors, onPushMessage),
-      validate("auth", "password", password, setErrors, onPushMessage)
-    );
-
-    if (isValid) {
-      const user = { user: { email, password } };
+    if (validate()) {
+      const user = {
+        user: {
+          email: validationFields.email,
+          password: validationFields.password,
+        },
+      };
       onSendUser(user);
     }
   };
@@ -67,9 +70,7 @@ function SignIn({ history, user, onSendUser, onPushMessage }) {
             label="Email Address"
             name="email"
             autoFocus
-            inputRef={(el) => {
-              SignIn.email = el;
-            }}
+            onChange={handlers.email}
           />
           <TextField
             variant="outlined"
@@ -81,9 +82,7 @@ function SignIn({ history, user, onSendUser, onPushMessage }) {
             label="Password"
             type="password"
             id="password"
-            inputRef={(el) => {
-              SignIn.password = el;
-            }}
+            onChange={handlers.password}
           />
           <Button
             type="submit"
