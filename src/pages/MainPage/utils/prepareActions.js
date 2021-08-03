@@ -1,26 +1,28 @@
 import actionsTypes, { actionsCategories } from "../constants";
 
 export const humanizeActions = (actions, currency, dateFrom, dateTo) => {
-  let processedActions = actions.map((action) => ({
-    ...action,
-    type: findNameById(action.type, "type"),
-    category: findNameById(action.category, "category"),
-    date: action.date.replace("T", " "),
-    value: action.value + currency,
-  }));
+  if (actions.length !== 0) {
+    let processedActions = actions.map((action) => ({
+      ...action,
+      type: findNameById(action.type, "type"),
+      category: findNameById(action.category, "category"),
+      date: action.date.replace("T", " "),
+      value: action.value + currency,
+    }));
 
-  processedActions =
-    dateFrom && dateTo
-      ? processedActions.filter((action) => {
-          const actionDate = new Date(action.date).getTime();
-          const earliestDate = new Date(dateFrom).getTime();
-          const latestDate = new Date(dateTo).getTime();
-          return actionDate > earliestDate && actionDate < latestDate;
-        })
-      : processedActions;
-  return processedActions.sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-  );
+    processedActions =
+      dateFrom && dateTo
+        ? processedActions.filter((action) => {
+            const actionDate = new Date(action.date).getTime();
+            const earliestDate = new Date(dateFrom).getTime();
+            const latestDate = new Date(dateTo).getTime();
+            return actionDate > earliestDate && actionDate < latestDate;
+          })
+        : processedActions;
+    return processedActions.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+  } else return [];
 };
 
 const findNameById = (id, fieldName) => {
@@ -42,7 +44,7 @@ export const unHumanizeAction = (action) => {
       type: findIdByName(action.type, "type"),
       category: findIdByName(action.category, "category"),
       date: action.date.replace(" ", "T"),
-      value: action.value.slice(0, action.value.length - 1),
+      value: action.value.replaceAll(/[^0-9]/g, ''),
     };
     return processedAction;
   } else return action;

@@ -2,6 +2,8 @@ import { put, take, fork, call, select } from "redux-saga/effects";
 import {
   WIDGET_POST,
   widgetPost,
+  WIDGET_EDIT,
+  widgetEdit,
   WIDGET_DELETE,
   widgetDelete,
   WIDGETS_GET,
@@ -11,6 +13,7 @@ import { snackbar } from "../../../shared/components/Snackbar/actions";
 import { getUser } from "../selectors/userSelectors";
 import {
   widgetPostRoute,
+  widgetEditRoute,
   widgetDeleteRoute,
   widgetsGetRoute,
 } from "../../../shared/constants";
@@ -38,6 +41,32 @@ export function* fetchPostWidget() {
     const { payload } = yield take(WIDGET_POST.REQUEST);
     const user = yield select(getUser);
     yield fork(onWidgetPost, { user, widget: payload });
+  }
+}
+
+function* onWidgetEdit(props) {
+  const response = yield call(fetch, widgetEditRoute, {
+    method: "POST",
+    body: JSON.stringify(props),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${props.user.token}`,
+    },
+  });
+  const jsonResponse = yield response.json();
+  if (response.status === 200) {
+    yield put(widgetEdit.success(jsonResponse));
+  } else {
+    yield put(snackbar.pushMessage({ text: jsonResponse.error }));
+    yield put(widgetEdit.failure());
+  }
+}
+
+export function* fetchEditWidget() {
+  while (true) {
+    const { payload } = yield take(WIDGET_EDIT.REQUEST);
+    const user = yield select(getUser);
+    yield fork(onWidgetEdit, { user, widget: payload });
   }
 }
 

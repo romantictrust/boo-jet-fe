@@ -10,6 +10,7 @@ export const budgetEditRoute = ORIGIN + "/budgets/edit";
 export const widgetPostRoute = ORIGIN + "/widgets";
 export const widgetsGetRoute = ORIGIN + "/widgets/";
 export const widgetDeleteRoute = ORIGIN + "/widgets/remove";
+export const widgetEditRoute = ORIGIN + "/widgets/edit";
 
 // Budget actions
 export const budgetActionPostRoute = ORIGIN + "/actions";

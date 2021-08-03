@@ -8,3 +8,11 @@ export const processWidgets = (state, budgets) => {
     return processedWidgets;
   } else return [];
 };
+
+export const processEditWidget = (state) => {
+  const editable = state.mainPage.widgets.editable;
+  const widgets = state.mainPage.widgets.data;
+  if (widgets.length !== 0 && !!editable?._id) {
+    return widgets.find((widget) => widget._id === editable._id);
+  } else return {};
+};

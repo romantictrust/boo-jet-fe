@@ -1,5 +1,7 @@
-import { useReducer } from "react";
+import { useState, useCallback } from "react";
 
-export default function useToggle(initial = false) {
-  return useReducer((state) => !state, initial);
+export default function useToggle(initialState = false) {
+  const [state, setState] = useState(initialState);
+  const toggle = useCallback(() => setState((state) => !state), []);
+  return [state, toggle];
 }

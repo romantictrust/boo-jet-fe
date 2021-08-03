@@ -7,34 +7,8 @@ import { budgetPost, budgetEdit, budgetsGet } from "../actions/budget";
 import { budgetActionPost } from "../actions/budgetActions";
 import { processBudgets } from "../selectors/budgetsSelectors";
 
-const BudgetBlockContainer = ({
-  currenciesList,
-  budgetsList,
-  editable,
-  isLoading,
-  onPushMessage,
-  onGetCurrencies,
-  onPostBudget,
-  onEditBudget,
-  onBudgetEditOver,
-  onGetBudget,
-  onPostBudgetAction,
-}) => {
-  return (
-    <BudgetBlock
-      currenciesList={currenciesList}
-      budgetsList={budgetsList}
-      editable={editable}
-      isLoading={isLoading}
-      onPushMessage={onPushMessage}
-      onGetCurrencies={onGetCurrencies}
-      onPostBudget={onPostBudget}
-      onEditBudget={onEditBudget}
-      onBudgetEditOver={onBudgetEditOver}
-      onGetBudget={onGetBudget}
-      onPostBudgetAction={onPostBudgetAction}
-    />
-  );
+const BudgetBlockContainer = (props) => {
+  return <BudgetBlock {...props} />;
 };
 
 const mapStateToProps = (state) => {

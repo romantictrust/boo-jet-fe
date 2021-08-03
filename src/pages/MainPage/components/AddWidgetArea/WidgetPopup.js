@@ -33,19 +33,37 @@ const errorsInitialState = {
   dateTo: false,
 };
 
-export default function AddWidgetPopup({
+export default function WidgetPopup({
+  editable,
   budgetsList,
   onClose,
   onPushMessage,
   onPostWidget,
+  onEditWidget,
+  onWidgetEditOver,
+  isEdit,
 }) {
-  const [form, setFormValues] = useState({ period: false });
+  const [form, setFormValues] = useState(
+    isEdit
+      ? {
+          ...editable,
+          dateFrom: editable.dateFrom
+            ? new Date(editable.dateFrom).toISOString().slice(0, 16)
+            : null,
+          dateTo: editable.dateTo
+            ? new Date(editable.dateTo).toISOString().slice(0, 16)
+            : null,
+          budget: budgetsList.find((budget) => budget._id === editable.budget),
+          period: editable.dateFrom?.length && editable.dateTo?.length,
+        }
+      : { period: false }
+  );
   const [activeStep, setActiveStep] = useState(0);
   const [errors, setErrors] = useState(errorsInitialState);
   const steps = getSteps();
 
   useEffect(() => {
-    if (form.period)
+    if (form.period && !(form.dateFrom?.length && form.dateTo?.length))
       setFormValues({
         ...form,
         dateFrom: findEarliest(form.budget.actions),
@@ -138,19 +156,23 @@ export default function AddWidgetPopup({
   };
 
   const handleFinish = () => {
-    const { name, type, width, budget, period, dateTo, dateFrom } = form;
-    onPostWidget({
+    const { _id, name, type, width, budget, period, dateTo, dateFrom } = form;
+    const widget = {
       name,
       type,
       width,
       budget: budget._id,
       dateTo: period ? dateTo : "",
       dateFrom: period ? dateFrom : "",
-    });
+    };
+    isEdit
+      ? onEditWidget({ ...widget, _id: _id })
+      : onPostWidget({ ...widget });
     handleFormClose();
   };
 
   const handleFormClose = () => {
+    onWidgetEditOver();
     onClose();
   };
 
@@ -162,7 +184,9 @@ export default function AddWidgetPopup({
       fullWidth
       maxWidth="md"
     >
-      <DialogTitle id="form-dialog-title">Add widget</DialogTitle>
+      <DialogTitle id="form-dialog-title">{`${
+        isEdit ? "Edit" : "Add"
+      } widget`}</DialogTitle>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const labelProps = {};
@@ -202,7 +226,7 @@ export default function AddWidgetPopup({
         </Button>
         {activeStep === steps.length - 1 ? (
           <Button variant="contained" color="primary" onClick={handleFinish}>
-            Finish
+            {isEdit ? "Edit" : "Finish"}
           </Button>
         ) : (
           <Button

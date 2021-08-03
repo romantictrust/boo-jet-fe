@@ -14,6 +14,16 @@ export const widgetPost = {
   failure: () => action(WIDGET_POST[FAILURE]),
 };
 
+export const WIDGET_EDIT = createRequestTypes("WIDGET_EDIT");
+
+export const widgetEdit = {
+  edit: (payload) => action("WIDGET_EDIT", payload),
+  deny: () => action("WIDGET_EDIT_DENY"),
+  request: (payload) => action(WIDGET_EDIT[REQUEST], payload),
+  success: (payload) => action(WIDGET_EDIT[SUCCESS], payload),
+  failure: () => action(WIDGET_EDIT[FAILURE]),
+};
+
 export const WIDGET_DELETE = createRequestTypes("WIDGET_DELETE");
 
 export const widgetDelete = {

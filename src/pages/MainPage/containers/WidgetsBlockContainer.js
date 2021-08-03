@@ -7,19 +7,11 @@ import { processBudgets } from "../selectors/budgetsSelectors";
 import { processWidgets } from "../selectors/widgetsSelectors";
 import { widgetsGet } from "../actions/widgets";
 
-const WidgetsBlockContainer = ({
-  widgets,
-  budgetsList,
-  onGetWidgets,
-  isLoading,
-  budgetIsUpdating,
-}) => {
+const WidgetsBlockContainer = (props) => {
   return (
     <WidgetsBlock
-      budgetsList={budgetsList}
-      widgets={widgets}
-      onGetWidgets={onGetWidgets}
-      isLoading={isLoading || budgetIsUpdating}
+      isLoading={props.isLoading || props.budgetIsUpdating}
+      {...props}
     />
   );
 };

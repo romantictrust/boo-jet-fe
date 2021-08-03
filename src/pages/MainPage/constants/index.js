@@ -10,6 +10,13 @@ export const actionsCategories = [
   { id: 8, name: "Other" },
 ];
 
+export const defaultChartData = {
+  currency: "",
+  label: "Please add actions",
+  x: "05.05.2005",
+  y: 150,
+};
+
 const actionsTypes = [
   { id: 0, name: "profit" },
   { id: 1, name: "wastage" },

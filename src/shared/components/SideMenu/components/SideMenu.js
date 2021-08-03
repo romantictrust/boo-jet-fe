@@ -37,27 +37,6 @@ function SideMenu({ history, isOpened, toggleDrawler }) {
         </IconButton>
       </div>
       <Divider />
-      <List>
-        {["User"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["Main"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
       <List className={styles.signOut}>
         <ListItem button onClick={handleSignOut} key={"signOut"}>
           <ListItemText primary="Sign out" />

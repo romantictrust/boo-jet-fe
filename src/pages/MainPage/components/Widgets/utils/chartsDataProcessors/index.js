@@ -1,4 +1,4 @@
-import { actionsCategories } from "../../../../constants";
+import { actionsCategories, defaultChartData } from "../../../../constants";
 
 export const processPChartWP = (actions) => {
   let wastage = { x: "Wastage", y: 0 };
@@ -25,6 +25,7 @@ export const processTimeLineChart = (actions) => {
       label: action.name,
     });
   });
+  if(data.length === 0) data.push(defaultChartData)
   return data;
 };
 

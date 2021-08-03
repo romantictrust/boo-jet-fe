@@ -27,11 +27,12 @@ export default function WidgetMenu({
             return (
               <MenuItem
                 key={key}
-                onClick={() =>
+                onClick={() => {
                   isPreview
                     ? alert("This is a preview mode")
-                    : option.method(widgetType, data, dispatch)
-                }
+                    : option.method(widgetType, data, dispatch);
+                  onClose();
+                }}
               >
                 {option.title}
               </MenuItem>
