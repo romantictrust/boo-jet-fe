@@ -14,7 +14,6 @@ import {
 const initialState = { data: [], editable: {}, loading: false };
 
 export const budgetsReducer = (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     case BUDGET_POST.REQUEST:
     case BUDGETS_GET.REQUEST:

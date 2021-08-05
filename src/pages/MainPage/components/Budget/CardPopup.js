@@ -34,7 +34,7 @@ export default function BudgetCardPopup({
       ...field,
       value:
         field.name === "currency"
-          ? editable?.[field.name]._id
+          ? editable?.[field.name]?._id ?? ""
           : editable?.[field.name] ?? field?.value ?? "",
     })),
     onPushMessage
