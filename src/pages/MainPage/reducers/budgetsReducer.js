@@ -14,6 +14,7 @@ import {
 const initialState = { data: [], editable: {}, loading: false };
 
 export const budgetsReducer = (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case BUDGET_POST.REQUEST:
     case BUDGETS_GET.REQUEST:
@@ -32,17 +33,17 @@ export const budgetsReducer = (state = initialState, action) => {
       return { ...state, data: action.payload, loading: false };
     case BUDGET_EDIT.SUCCESS:
       return { ...state, data: action.payload, editable: {}, loading: false };
-    case BUDGET_POST.FAILTURE:
-    case BUDGETS_GET.FAILTURE:
-    case BUDGET_DELETE.FAILTURE:
-    case BUDGET_ACTION_POST.FAILTURE:
-    case BUDGET_ACTION_EDIT.FAILTURE:
-    case BUDGET_ACTION_DELETE.FAILTURE:
+    case BUDGET_POST.FAILURE:
+    case BUDGETS_GET.FAILURE:
+    case BUDGET_DELETE.FAILURE:
+    case BUDGET_ACTION_POST.FAILURE:
+    case BUDGET_ACTION_EDIT.FAILURE:
+    case BUDGET_ACTION_DELETE.FAILURE:
       return { ...state, loading: false };
     case "BUDGET_EDIT":
       return { ...state, editable: action.payload };
     case "BUDGET_EDIT_DENY":
-    case BUDGET_EDIT.FAILTURE:
+    case BUDGET_EDIT.FAILURE:
       return { ...state, editable: {} };
     default: {
       return state;

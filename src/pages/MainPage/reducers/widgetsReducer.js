@@ -20,14 +20,14 @@ export const widgetsReducer = (state = initialState, action) => {
       return { ...state, data: action.payload, loading: false };
     case WIDGET_EDIT.SUCCESS:
       return { ...state, data: action.payload, loading: false };
-    case WIDGET_POST.FAILTURE:
-    case WIDGETS_GET.FAILTURE:
-    case WIDGET_DELETE.FAILTURE:
+    case WIDGET_POST.FAILURE:
+    case WIDGETS_GET.FAILURE:
+    case WIDGET_DELETE.FAILURE:
       return { ...state, loading: false };
     case "WIDGET_EDIT":
       return { ...state, editable: action.payload };
     case "WIDGET_EDIT_DENY":
-    case WIDGET_EDIT.FAILTURE:
+    case WIDGET_EDIT.FAILURE:
       return { ...state, editable: {} };
     default: {
       return state;
