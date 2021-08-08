@@ -28,9 +28,7 @@ export default function WidgetMenu({
               <MenuItem
                 key={key}
                 onClick={() => {
-                  isPreview
-                    ? alert("This is a preview mode")
-                    : option.method(widgetType, data, dispatch);
+                  !isPreview && option.method(widgetType, data, dispatch);
                   onClose();
                 }}
               >

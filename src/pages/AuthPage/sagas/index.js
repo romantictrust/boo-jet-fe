@@ -8,8 +8,6 @@ import {
 import { snackbar } from "../../../shared/components/Snackbar/actions";
 import { signInRoute, reconfirmEmailRoute } from "../../../shared/constants";
 
-// import { successMessage } from "../constants";
-
 function* onSignInUser(userData) {
   const response = yield call(fetch, signInRoute, {
     method: "POST",
@@ -47,7 +45,6 @@ function* onReconfirmEmail(userData) {
   const jsonResponse = yield response.json();
   if (response.status === 200) {
     yield put(emailReconfirmation.success(jsonResponse));
-    // yield put(snackbar.pushMessage({ text: successMessage, snackbarType: "info" }));
   } else yield put(snackbar.pushMessage({ text: jsonResponse.error }));
 }
 

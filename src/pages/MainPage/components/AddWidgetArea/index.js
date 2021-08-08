@@ -18,9 +18,11 @@ export default function AddWidgetArea({
 }) {
   const isEdit = !!editable?._id;
   const [isPopupOpened, togglePopupModal] = useToggle(isEdit);
+  
   useEffect(() => {
     if (isEdit) togglePopupModal(true);
   }, [editable]);
+
   return (
     <>
       <Grid item xs={12} className={styles.root}>

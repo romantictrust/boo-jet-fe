@@ -12,8 +12,8 @@ export const actionsCategories = [
 
 export const defaultChartData = {
   currency: "",
-  label: "Please add actions",
-  x: "05.05.2005",
+  label: "",
+  x: "",
   y: 150,
 };
 

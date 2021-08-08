@@ -4,6 +4,7 @@ import { userSignUpReduser } from "./pages/RegisterPage/reducers";
 import { userSignInReduser } from "./pages/AuthPage/reducers";
 import { resentReducer } from "./pages/AuthPage/reducers/resentReduser";
 import { snackbarReducer } from "./shared/components/Snackbar/reducers";
+
 const rootReducer = combineReducers({
   mainPage: mainPageReducer,
   signUpPage: userSignUpReduser,

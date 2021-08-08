@@ -2,22 +2,9 @@ import { createStore, compose, applyMiddleware } from "redux";
 import logger from "redux-logger";
 import createSagaMiddleware, { END } from "redux-saga";
 import sagaMonitor from "@redux-saga/simple-saga-monitor";
-import { USER_SIGN_IN } from "./pages/AuthPage/actions";
+import localStorageMiddleware from "./middlewares/localStorageMiddleware";
 import rootReducer from "./reducers";
 
-const localStorageMiddleware = ({ getState }) => {
-  return (next) => (action) => {
-    try {
-      const result = next(action);
-      if ([USER_SIGN_IN.SUCCESS].includes(result.type)) {
-        localStorage.setItem("user", JSON.stringify(result.payload.user));
-      }
-      return result;
-    } catch (e) {
-      console.error(e);
-    }
-  };
-};
 
 const reHydrateStore = () => {
   const user = localStorage.getItem("user");

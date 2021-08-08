@@ -51,8 +51,6 @@ export default function Widget({
         <CardContent className={isPreview ? styles.disabled : null}>
           {children}
         </CardContent>
-        {/* <CardActions disableSpacing>
-        </CardActions> */}
       </Card>
     </Grid>
   );

@@ -19,12 +19,10 @@ export default function Timeline({ data, dateFrom, dateTo }) {
         theme={VictoryTheme.material}
         containerComponent={<VictoryZoomContainer />}
         interpolation="linear"
-        // range={{ x: [50, 300] }}
         data={data}
       >
         <VictoryAxis
           x={data.x}
-          // range={{ x: [50, 300] }}
           style={{
             tickLabels: { angle: -45, fontSize: 10 },
           }}

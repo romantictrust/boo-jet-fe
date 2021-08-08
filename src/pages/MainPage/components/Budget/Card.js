@@ -75,8 +75,6 @@ export default function BudgetCard({
             </Grid>
           </Grid>
         </CardContent>
-        {/* <CardActions>
-        </CardActions> */}
       </Card>
       {isActionsOpened && (
         <ActionPopup
